@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- views/pages/map.ejs -->
+
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body>
+
+	<header>
+    	<% include ../partials/header %>
+    </header>
+	
+	<div class="container">
+		<h1><%= title %></h1>
+
+		<table width="80%">
+			<% for (var i = 0; i < items.length; i++) { %>
+				<tr><td><%= items[i].id %></td>
+					<td><%= items[i].time %></td>
+					<td><%= items[i].date %></td>
+					<td><%= items[i].ip %></td>
+
+					<td><form action="/delete" method=post>
+						<input type="hidden" name="delItem" value="<%= i %>">
+						<input type="submit" value="Del">
+					</form></td>
+				</tr>
+			<% } %>
+		</table>
+
+
+
+
+		<form action="/add" method="post">
+			<input type="text" name="newItem">
+			<input type="submit">
+		</form>
+	</div>
+	
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

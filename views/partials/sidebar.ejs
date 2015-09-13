@@ -1,0 +1,102 @@
+<!-- views/partials/sidebar.ejs -->
+
+
+        <!-- begin SIDE NAVIGATION -->
+        <nav class="navbar-side" role="navigation">
+            <div class="navbar-collapse sidebar-collapse collapse">
+                <ul id="side" class="nav navbar-nav side-nav">
+                    <!-- begin SIDE NAV USER PANEL -->
+                    <li class="side-user hidden-xs">
+                        <!--img class="img-circle" src="assets2/img/profile-pic.jpg" alt=""-->
+                        <p class="welcome">
+                            <i class="fa fa-key"></i> Logged in as
+                        </p>
+                        <p class="name tooltip-sidebar-logout">
+                            <%= user[0].namefirst %>
+                            <span class="last-name"><%= user[0].namelast %></span> <a style="color: inherit" class="logout_open" href="#logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
+                        </p>
+                        <div class="clearfix"></div>
+                    </li>
+                    <!-- end SIDE NAV USER PANEL -->
+                    <!-- begin SIDE NAV SEARCH -->
+                    <li class="nav-search">
+                        <form role="form">
+                            <input type="search" class="form-control" placeholder="Search...">
+                            <button class="btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <!-- end SIDE NAV SEARCH -->
+                    <!-- begin DASHBOARD LINK -->
+                    <li>
+                        <a class="active" href="/">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    <!-- end DASHBOARD LINK -->
+
+                    <!-- begin DEVICES LINK -->
+                    <li>
+                        <a class="active" href="/devices">
+                            <i class="fa fa-dashboard"></i> Devices
+                        </a>
+                    </li>
+                    <!-- end DEVICES LINK -->
+
+                    <!-- begin LIVE MAP LINK -->
+                    <li>
+                        <a class="active" href="/map">
+                            <i class="fa fa-dashboard"></i> Live Map
+                        </a>
+                    </li>
+                    <!-- end LIVE MAP LINK -->
+
+                    <!-- begin SETTINGS LINK -->
+                    <li>
+                        <a class="active" href="/settings">
+                            <i class="fa fa-dashboard"></i> Settings
+                        </a>
+                    </li>
+                    <!-- end SETTINGS LINK -->
+
+                    <!-- begin CONTACTS LINK -->
+                    <li>
+                        <a class="active" href="/contacts">
+                            <i class="fa fa-dashboard"></i> Contacts
+                        </a>
+                    </li>
+                    <!-- end CONTACTS LINK -->
+
+                    <!-- begin IPLOG LINK -->
+                    <li>
+                        <a class="active" href="/log_ip">
+                            <i class="fa fa-dashboard"></i> IP Log
+                        </a>
+                    </li>
+                    <!-- end IPLOG LINK -->
+
+                    <!-- begin ABOUT LINK -->
+                    <li>
+                        <a class="active" href="/about">
+                            <i class="fa fa-dashboard"></i>About
+                        </a>
+                    </li>
+                    <!-- end ABOUT LINK -->
+
+
+
+
+                </ul>
+                <!-- /.side-nav -->
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <!-- /.navbar-side -->
+        <!-- end SIDE NAVIGATION -->
+
+
+						<!--div class="info">
+							<%= user[0].name %>
+							<small><%= user[0].title %></small>
+						</div-->
