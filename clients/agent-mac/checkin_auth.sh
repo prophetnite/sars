@@ -1,6 +1,5 @@
 #!/bin/bash
-#checkin_auth.sh
-
+# checkin_auth.sh     #MAC VERSION
 iwlist wlan0 scanning > wifidump.txt
 
 wifi_list="$(grep ESSID wifidump.txt)"
