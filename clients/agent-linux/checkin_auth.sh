@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#iwlist wlan0 scanning > wifidump.txt
+iwlist wlan0 scanning > wifidump.txt
 
 wifi_list="$(grep ESSID wifidump.txt)"
 wifi_list="$(echo $wifi_list | tr -d '\n')"
