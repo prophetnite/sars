@@ -20,7 +20,7 @@ var app         =	express();
 var key  = fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
 var cert = fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
 
-var port = process.env.PORT || 1337; // used to create, sign, and verify tokens
+var port = process.env.PORT || 443; // used to create, sign, and verify tokens
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 
