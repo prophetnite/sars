@@ -46,16 +46,23 @@
                 </div>
                 <!-- /.row -->
                 <!-- end PAGE TITLE AREA -->
+                <div class="panel panel-default">
+                  <div class="panel-body" class="bg-warning">
+                    <%= token %>
+                  </div>
+                </div>
+
+                
 
                 Unauthenticated Routes
                 <ul>
                     <li><a href="/login">/login</a><br>
                     <li><a href="/logout">/logout</a><br>
                     <li><a href="/api">/api</a><br>
-                    <li><a href="/logout">/api/authenticate</a><br>
+                    <li><a href="/api/authenticate">/api/authenticate</a><br>
                 </ul>
 
-                Authenticated Routes
+                Authenticated Routes - Mongo
                 <ul>
                     <li><a href="/api/mongo/create" target='_blank'>/api/mongo/create</a><br>
                     <li><a href="/api/mongo/read">/api/mongo/read</a><br>
@@ -63,7 +70,19 @@
                     <li><a href="/api/mongo/delete/_IDOID">/api/mongo/delete/_id</a><br>
                     <li><a href="/api/users" target='_blank'>/api/users</a><br>
                 </ul>
-            
+                Authenticated Special Routes - Mongo
+                <ul>
+                    <li><a href="/api/mongo/public/create?token=<%= token %>&user=prophetnite" target='_blank'>/api/mongo/create?token=[token]&user=[user]</a><br>
+                </ul>
+                Authenticated Routes - Local CSV
+                <ul>
+                    <li><a href="/api/csv/create" target='_blank'>/api/csv/create</a><br>
+                    <li><a href="/api/csv/read">/api/csv/read</a><br>
+                    <li><a href="/api/csv/read/prophetnite">/api/csv/read/[username]</a><br>
+                    <li><a href="/api/csv/update/asdfasdfasdf">/api/csv/update/[_id]</a><br>
+                    <li><a href="/api/csv/delete/asdfasdfasdf">/api/mongo/delete/[_id]</a><br>
+                    <li><a href="/api/users" target='_blank'>/api/users</a><br>
+                </ul>
             </div>
             <!-- /.page-content -->
 

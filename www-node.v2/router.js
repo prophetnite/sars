@@ -123,12 +123,6 @@ router.get('/api/setup', function (req, res) {
 
 
 
-
-
-
-
-
-
 // --------------------- CORE SITE PAGES - PUBLIC ---------------------
 // route to show version message (GET http://localhost:8080/api/)
 router.get('/api', function (req, res) {
@@ -230,6 +224,49 @@ router.get('/api/users', function (req, res) {
 
 
 
+// ------------------SEMI PRIVATE -------------------------------------
+router.get('/api/mongo/public/create', function (req, res) {	
+	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged 
+	var ts_hms = moment().format('hh:mm:ss');
+	var ts_ymd = moment().format('L');
+	var fullheader = req.headers;
+
+	var log_ip = new Log_IP({ 
+		"time":ts_hms,
+        "date":ts_ymd,
+        "ip":trackip,
+        "host":req.headers['host'],
+		"user-agent":req.headers['user-agent'],
+        "accept":req.headers['accept'],
+        "accept-language":req.headers['accept-language'],
+        "accept-encoding":req.headers['accept-encoding'],
+        "connection":req.headers['connection'],
+        "owner":req.query.username
+	});
+		console.log('---------------------------------------')
+		console.log('\nUser: ' + req.query.username + '\n\n')
+		console.log(log_ip + '\n')
+		console.log('---------------------------------------')
+
+	log_ip.save(function(err) {
+		if (err) throw err;
+		console.log('Log_IP saved successfully');
+    	res.json({ success: true });
+	});
+	//res.end('NSA tracking Database: Thanks for reporting in!');
+})
+// ------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 // --------------------- API (JSON-MONGO) TEST SYSTEM  ---------------------
 router.get('/api/mongo/create', function (req, res) {	
 	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged 
@@ -249,7 +286,12 @@ router.get('/api/mongo/create', function (req, res) {
         "connection":req.headers['connection'],
         "owner":req.session.username
 	});
-		console.log('REA: ' + req.session.username)
+		
+		console.log('---------------------------------------')
+		console.log('\nUser: ' + req.session.username + '\n\n')
+		console.log(log_ip + '\n')
+		console.log('---------------------------------------')
+
 	log_ip.save(function(err) {
 		if (err) throw err;
 		console.log('Log_IP saved successfully');
@@ -299,7 +341,8 @@ router.get('/dashboard', function (req, res){
 	//load data from DB here
 	res.render('pages/dashboard', {
 		pagetitle: 'Welcome to you Dashboard',
-		user: userDetails
+		user: userDetails,
+		token: req.session.token
 	});
 });
 router.get('/log_ip', function (req, res){
@@ -347,6 +390,7 @@ router.get('/about', function (req, res){
 	});
 });
 //  --------------- END CORE SITE PAGES - PRIVATE -------------------
+
 
 
 
