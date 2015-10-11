@@ -3,6 +3,7 @@
 // get the packages we need ============
 // =======================
 var express 	=	require('express');
+var session 	= 	require('express-session')
 var path 		=	require('path');
 var bodyParser  = 	require('body-parser');
 var morgan      = 	require('morgan');
@@ -31,11 +32,12 @@ app.set('views', path.join(__dirname, 'views'));
 //app.use(bodyParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use('/assets', express.static('assets'));
 app.use('/assets2', express.static('assets2'));
 app.use(morgan('dev'));
+
+
 
 
 // define routes
