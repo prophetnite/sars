@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -26,7 +25,33 @@
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="assets/plugins/pace/pace.min.js"></script>
     <!-- ================== END BASE JS ================== -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    var username,password;
+    $("#submit").click(function(){
+        username=$("#username").val();
+        password=$("#password").val();
+        /*
+        * Perform some validation here.
+        */
+        $.post("https://localhost/api/authenticate",{name:username,password:password,apitype:"web"},function(data){       
+            //console.log(data);                                                                              // #DEBUG QRZ
+            data = JSON.parse(JSON.stringify(data));
+            //console.log(data.success);                                                                      // #DEBUG QRZ
+            if(data.success==='true')          
+            {
+                //console.log("passed")                                                                       // #DEBUG QRZ
+                window.location.href="dashboard";
+            }
+        });
+    });
+});
+</script>
+    
 </head>
+
+
 <body class="pace-top">
     <!-- begin #page-loader -->
     <div id="page-loader" class="fade in"><span class="spinner"></span></div>
@@ -52,21 +77,22 @@
             </div>
             <!-- end brand -->
             <div class="login-content">
-                <form action="/api/authenticate" method="POST" class="margin-bottom-0">
+
+                <form class="margin-bottom-0">
                     <input type="hidden" name="apitype" value="web" />
                     <div class="form-group m-b-20">
-                        <input type="text" name="name" class="form-control input-lg" placeholder="username" />
+                        <input type="text" name="username" class="form-control input-lg" placeholder="username" id="username" />
                     </div>
                     <div class="form-group m-b-20">
-                        <input type="text" name="password" class="form-control input-lg" placeholder="Password" />
+                        <input type="text" name="password" class="form-control input-lg" placeholder="Password" id="password" />
                     </div>
                     <div class="checkbox m-b-20">
                         <label>
                             <input type="checkbox" /> Remember Me
                         </label>
                     </div>
-                    <div class="login-buttons">
-                        <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
+                    <div class="login-buttons" id="submit">
+                        <button type="button" class="btn btn-success btn-block btn-lg" id="submit" value="submit">Sign me in</button>
                     </div>
                     <div class="m-t-20">
                         Not a member yet? Click <a href="#">here</a> to register.

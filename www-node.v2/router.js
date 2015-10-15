@@ -174,12 +174,11 @@ router.post('/api/authenticate', function (req, res) {
         if (req.body.apitype == "web") {
         	req.session.username=req.body.name
         	req.session.token=token
-        	res.redirect('/dashboard')
+        	res.json({"success":"true","message":"Enjoy your token!",token:token,"session":"true"});
+        	// res.redirect('/dashboard')
         } else {
-        	res.json({
-            success: true,
-            message: 'Enjoy your token!',
-            token: token});
+
+        	res.json({"success":"true","message":"Enjoy your token!",token:token,"session":"false"});
        }
       }   
     }
@@ -336,7 +335,7 @@ router.get('/api/mongo/delete/:id', function (req, res) {
 
 // --------------------- CORE SITE PAGES - PRIVATE ---------------------
 router.get('/dashboard', function (req, res){
-	console.log('\nDashboard: Token: ' + req.session.token)
+	console.log('\nDashboard: Token: ' + req.session.token)																// #DEBUG QRZ
 	
 	//load data from DB here
 	res.render('pages/dashboard', {
@@ -411,7 +410,7 @@ router.get('/api/csv/create', function (req, res) {
 		"remoteAddress": trackip,
 		"headers": fullheader	
 	};
-	console.log(loggedAddresses);														// DEBUG CONSOLE LOGGING
+	console.log(loggedAddresses);														// #DEBUG QRZ CONSOLE LOGGING
 	writedatabase(loggedAddresses, 'ip');
 
 	res.end('NSA tracking Database: Thanks for reporting in!');
