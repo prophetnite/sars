@@ -1,27 +1,33 @@
 wlan0     Scan completed :
-          Cell 01 - Address: AC:86:74:44:DD:02
+          Cell 01 - Address: C4:04:15:64:53:A4
                     Channel:6
                     Frequency:2.437 GHz (Channel 6)
-                    Quality=59/70  Signal level=-51 dBm  
+                    Quality=70/70  Signal level=-32 dBm  
                     Encryption key:on
-                    ESSID:"LDCS Secure"
-                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 6 Mb/s
-                              9 Mb/s; 12 Mb/s; 18 Mb/s
-                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    ESSID:"FBI SURVEILLANCE VAN: 357"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 18 Mb/s
+                              24 Mb/s; 36 Mb/s; 54 Mb/s
+                    Bit Rates:6 Mb/s; 9 Mb/s; 12 Mb/s; 48 Mb/s
                     Mode:Master
-                    Extra:tsf=0000003b34181e1f
-                    Extra: Last beacon: 8ms ago
-                    IE: Unknown: 000B4C44435320536563757265
-                    IE: Unknown: 010882848B960C121824
+                    Extra:tsf=000002c4aac8b37a
+                    Extra: Last beacon: 93944ms ago
+                    IE: Unknown: 0019464249205355525645494C4C414E43452056414E3A20333537
+                    IE: Unknown: 010882848B962430486C
                     IE: Unknown: 030106
                     IE: Unknown: 0706555320010B1E
-                    IE: Unknown: 2A0103
-                    IE: Unknown: 32043048606C
+                    IE: Unknown: 200100
+                    IE: Unknown: 23021900
+                    IE: Unknown: 2A0100
+                    IE: Unknown: 2F0100
                     IE: IEEE 802.11i/WPA2 Version 1
                         Group Cipher : CCMP
                         Pairwise Ciphers (1) : CCMP
                         Authentication Suites (1) : PSK
-                    IE: Unknown: 2D1AEE111BFFFFFF0000000000000000000100000000000000000000
-                    IE: Unknown: 3D1606051700000000000000000000000000000000000000
-                    IE: Unknown: DD180050F2020101000003A4000027A4000042435E0062322F00
+                    IE: Unknown: 32040C121860
+                    IE: Unknown: 2D1AAD1917FFFFFF0000000000000000000000000000000000000000
+                    IE: Unknown: 3D1606080000000000000000000000000000000000000000
+                    IE: Unknown: 7F080400000000000040
+                    IE: Unknown: DD090010180201001C0000
+                    IE: Unknown: DD180050F2020101800003A4000027A4000042435E0062322F00
+                    IE: Unknown: 46057208010000
 

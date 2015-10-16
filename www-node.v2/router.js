@@ -1,3 +1,4 @@
+
 // --------------------- INCLUDES AND CONFIGURATION  ---------------------
 var express =	require('express');
 var session = 	require('express-session')
@@ -240,10 +241,10 @@ router.get('/api/mongo/public/create', function (req, res) {
         "accept-language":req.headers['accept-language'],
         "accept-encoding":req.headers['accept-encoding'],
         "connection":req.headers['connection'],
-        "owner":req.query.username
+        "owner":req.body.username
 	});
 		console.log('---------------------------------------')
-		console.log('\nUser: ' + req.query.username + '\n\n')
+		console.log('\nUser: ' + req.body.username + '\n\n')
 		console.log(log_ip + '\n')
 		console.log('---------------------------------------')
 
