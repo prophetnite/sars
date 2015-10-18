@@ -48,7 +48,51 @@ router.get('/logout', function (req, res){
 	req.session.destroy(function(err) {})
 	res.redirect('/login');
 });
+
+router.get('/register', function (req, res){		
+	//if (req.session.token){res.redirect('/dashboard')}
+	res.render('pages/register');
+});
+
 // --------------------- END CORE SITE PAGES - PUBLIC ---------------------
+
+
+
+
+
+
+// --------------------- API LOGIC ROUTES - PUBLIC---------------------
+router.post('/api/mongo/user/register', function (req, res){		
+	//if (req.session.token){res.redirect('/dashboard')}
+	console.log('endpoint hit');
+	console.log(req.body.firstname);
+	console.log(req.body.lastname);
+	console.log(req.body.email);
+	console.log(req.body.email2);
+	console.log(req.body.password);
+
+	// Check if username already registered
+	finduser = User.findOne({
+			$or: [
+            	{ 'username' : req.body.email },
+           		{ 'email': req.body.email }
+           	]}, function(err, user) {
+    			if (err) throw err;
+    			if (!user){
+    				console.log('User not registered');
+    		//		res.json({success:false, message:"Username Not found"})
+    			} else {
+    				console.log('User registered');
+    			//	res.json({success:false, message:"Username alread registered"})
+    			}
+    	
+			});
+console.log("FINEUSER: " + finduser.user);
+
+//	res.json({success:true});
+});
+
+// --------------------- END API LOGIC ROUTES - PUBLIC ---------------------
 
 
 
@@ -73,7 +117,7 @@ router.post('/api/authenticate', function (req, res) {
         // if user is found and password is right
         // create a token
         var token = jwt.sign(user, config.secret_token_api, {
-          expiresInMinutes: 1440 // expires in 24 hours
+          expiresInMinutes: 120 // expires in 24 hours
         });
         // return the information including token as JSON
 
@@ -175,12 +219,6 @@ router.get('/api/mongo/public/create', function (req, res) {
 	//res.end('NSA tracking Database: Thanks for reporting in!');
 })
 // ------------------------------------------------------------------------------
-
-
-
-
-
-
 
 
 

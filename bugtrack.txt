@@ -1,4 +1,7 @@
 10/11/15 12:37am login.ejs - line 55 - login form posts to localhost
 10/15/15 12:37am login.ejs - No GUI responce for failed logi
 10/17/15 1:53pm  dashboard.ejs - line 15 - user[0].namefirst is unneeded.  Array should be eliminated completely.
+10/18/15	fix bug_mode flag, when debug mode is activated, node.js restarts, dropping session state.  this causes bugmode to take over, regardless of sessions.
+
+10/18/15 	consolodate ajax calls to api, currently all login/register ajax are page independant functions
 
