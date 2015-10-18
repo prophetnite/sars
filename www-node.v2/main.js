@@ -1,6 +1,6 @@
 // includes
 // =======================
-// get the packages we need ============
+// get the packages we need 
 // =======================
 var https 		= 	require('https');
 var fs 			= 	require('fs');
@@ -13,14 +13,14 @@ var mongoose    = 	require('mongoose');
 var config 		= 	require('./config'); 			// get our config file
 var app         =	express();
 
-
 // =======================
-// configuration =========
+// configuration
 // =======================
-var key  = fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
-var cert = fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
+var key  		= 	fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
+var cert 		= 	fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
 
-var port = process.env.PORT || 443; // used to create, sign, and verify tokens
+var port 		= 	process.env.PORT || 443; // used to create, sign, and verify tokens
+
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 

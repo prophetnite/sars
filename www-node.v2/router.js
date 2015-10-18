@@ -1,123 +1,29 @@
 
 // --------------------- INCLUDES AND CONFIGURATION  ---------------------
-var express =	require('express');
-var session = 	require('express-session')
-var moment 	=	require('moment');
-var fs 		=	require("fs");
-var jwt    	=	require('jsonwebtoken'); 		// used to create, sign, and verify tokens
-var router 	=	express.Router();
 
-var User   	=	require('./models/user');
-var Log_IP 	=	require('./models/log_ip');
+// Includes
+var express 	=	require('express');
+var session 	= 	require('express-session')
+var moment 		=	require('moment');
+var fs 			=	require("fs");
+var jwt    		=	require('jsonwebtoken'); 		// used to create, sign, and verify tokens
+var router 		=	express.Router();
 
-var config 	= 	require('./config'); 			// get our config file
+// DB Models
+var User   		=	require('./models/user');
+var Log_IP 		=	require('./models/log_ip');
+
+//Configs
+var config 		= 	require('./config'); 				// get our config file
+var debug_login	= 	true;								//DEBUG QRZ
+var debug_token = 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
 
 router.use(session({
-  secret: 'keyboard cat',
+  secret: config.secret_api_token,
   resave: false,
   saveUninitialized: false
 }))
 // --------------------- END INCLUDES AND CONFIGURATION  ---------------------
-
-
-
-
-
-
-// --------------------- TEST DATA  ---------------------
-var userDetails = [{ 
-		namefirst: "Lord",
-		namelast: "_ASDF",
-		title: "Security Engineer",
-		email: 34,
-		messages: 343}];
-
-var ipadd = {
-		"time":"12:08:00",
-        "date":"9/12/15",
-        "ip":"localhost",
-        "host":"localhost:1337",
-        "user-agent":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0",
-        "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-language":"en-US,en;q=0.5",
-        "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-language":"en-US,en;q=0.5",
-        "accept-encoding":"gzip, deflate",
-        "connection":"keep-alive"}
-// --------------------- END TEST DATA  ---------------------
-
-
-
-
-
-
-// --------------------- CSV JSON DATABASE FUNCTIONS  ---------------------
-function writedatabase(data, db_type){
-	fs.writeFile( __dirname + "/" + "iplog_db_" + db_type + ".json", JSON.stringify(data), function (err) {		
-			if (err) return console.log(err);											// ERROR CONSOLE LOGGING
-	});
-}
-
-function loaddatabase(db_type) {
-	var db;
-	try {
-		database = fs.readFileSync( __dirname + "/" + "iplog_db_" + db_type + ".json", 'utf8');
-	} catch (e) {
-		console.log('Read file error: ' + e);
-	}
-	return JSON.parse(database);
-}
-// --------------------- END CSV JSON DATABASE FUNCTIONS  ---------------------
-
-
-
-
-
-
-// --------------------- API DATABASE SETUP ROUTES  ---------------------
-// ------- ***** CONFIG CONTAINS LIVE DATABASE PASSWORDS ***** ----------
-// ---------------------------config.secret------------------------------
-// ----------------------------------------------------------------------
-router.get('/api/setup', function (req, res) {
-	// create a sample user
-	/*var nick = new User({ 
-    	name: 'prophetnite', 
-    	password: 'password',
-    	admin: true 
-	});*/
-
-	var log_ip = new Log_IP({ 
-		"time":"12:08:00",
-        "date":"9/12/15",
-        "ip":"localhost",
-        "host":"localhost:1337",
-        "user-agent":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0",
-        "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-language":"en-US,en;q=0.5",
-        "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-language":"en-US,en;q=0.5",
-        "accept-encoding":"gzip, deflate",
-        "connection":"keep-alive",
-        "other":"other",
-        "owner":"user"
-	});
-
-	// save the sample user
-	/*nick.save(function(err) {
-		if (err) throw err;
-		console.log('User saved successfully');
-    	res.json({ success: true });
-	});*/
-
-	// save the sample user
-	log_ip.save(function(err) {
-		if (err) throw err;
-		console.log('User saved successfully');
-    	res.json({ success: true });
-	});
-
-});
-// --------------------- API DATABASE SETUP ROUTES  ---------------------
 
 
 
@@ -135,7 +41,10 @@ router.get('/', function (req, res){
 });
 
 router.get('/login', function (req, res){
-	if (req.session.token){res.redirect('/dashboard')}
+	var token = req.session.token || debug_login;
+	if (token){req.query.token=debug_token}
+	console.log("Login page Token: " + token);
+	//if (token){res.redirect('/dashboard')}
 	res.render('pages/login', {});
 });
 
@@ -189,7 +98,16 @@ router.post('/api/authenticate', function (req, res) {
 // route middleware to verify a token
 router.use(function (req, res, next) {
 	// check header or url parameters or post parameters for token
-  	var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.session.token;
+	var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.session.token || "";
+
+	console.log("\n\n----------------------------------------------------------")							// DEBUG QRZ
+  	console.log("\ntoken:" + token, "\ndebug:" + debug_login, "\ndebug_token: " + debug_token)				//
+  																											//
+  	if (!token && debug_login) {
+  			console.log("\nDebug login ACTIVE");															//
+  			token = debug_token}
+  	console.log("\n-----------------------------------------------------------\n\n")						//
+  	
 	// decode token
   	if (token) {
     // verifies secret and checks exp
@@ -231,6 +149,12 @@ router.get('/api/mongo/public/create', function (req, res) {
 	var ts_ymd = moment().format('L');
 	var fullheader = req.headers;
 
+	if (req.session.username) {
+		owner = req.session.username
+	} else {
+		owner = req.body.username
+	}
+
 	var log_ip = new Log_IP({ 
 		"time":ts_hms,
         "date":ts_ymd,
@@ -241,10 +165,10 @@ router.get('/api/mongo/public/create', function (req, res) {
         "accept-language":req.headers['accept-language'],
         "accept-encoding":req.headers['accept-encoding'],
         "connection":req.headers['connection'],
-        "owner":req.body.username
+        "owner":owner
 	});
 		console.log('---------------------------------------')
-		console.log('\nUser: ' + req.body.username + '\n\n')
+		console.log('\nUser: ' + owner + '\n\n')
 		console.log(log_ip + '\n')
 		console.log('---------------------------------------')
 
@@ -274,6 +198,12 @@ router.get('/api/mongo/create', function (req, res) {
 	var ts_ymd = moment().format('L');
 	var fullheader = req.headers;
 
+	if (req.session.username) {
+		owner = req.session.username
+	} else {
+		owner = req.body.username
+	}
+
 	var log_ip = new Log_IP({ 
 		"time":ts_hms,
         "date":ts_ymd,
@@ -284,11 +214,11 @@ router.get('/api/mongo/create', function (req, res) {
         "accept-language":req.headers['accept-language'],
         "accept-encoding":req.headers['accept-encoding'],
         "connection":req.headers['connection'],
-        "owner":req.session.username
+        "owner":owner
 	});
 		
 		console.log('---------------------------------------')
-		console.log('\nUser: ' + req.session.username + '\n\n')
+		console.log('\nUser: ' + owner + '\n\n')
 		console.log(log_ip + '\n')
 		console.log('---------------------------------------')
 
@@ -301,6 +231,7 @@ router.get('/api/mongo/create', function (req, res) {
 })
 
 router.get('/api/mongo/read', function (req, res) {
+
 	Log_IP.find({}, function (err, users) {
 		res.json(users);
 	});   
@@ -341,7 +272,13 @@ router.get('/dashboard', function (req, res){
 	//load data from DB here
 	res.render('pages/dashboard', {
 		pagetitle: 'Welcome to you Dashboard',
-		user: userDetails,
+		user: [{
+			username: req.session.username, 
+			namefirst: "",
+			namelast: "",
+			title: "Security Engineer",
+			email: 34,
+			messages: 343}],
 		token: req.session.token
 	});
 });
@@ -351,7 +288,7 @@ router.get('/log_ip', function (req, res){
 	res.render('pages/log_ip', {
 		pagetitle: "Live IP Log",
 		loggedAddresses: iplog_db,
-		user: userDetails
+		username: req.session.username2
 	});
 });
 router.get('/devices', function (req, res){

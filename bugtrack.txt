@@ -1,2 +1,4 @@
 10/11/15 12:37am login.ejs - line 55 - login form posts to localhost
-10/15/15 12:37am login.ejs - No GUI responce for failed login
+10/15/15 12:37am login.ejs - No GUI responce for failed logi
+10/17/15 1:53pm  dashboard.ejs - line 15 - user[0].namefirst is unneeded.  Array should be eliminated completely.
+

@@ -2,15 +2,15 @@ wlan0     Scan completed :
           Cell 01 - Address: C4:04:15:64:53:A4
                     Channel:6
                     Frequency:2.437 GHz (Channel 6)
-                    Quality=70/70  Signal level=-32 dBm  
+                    Quality=59/70  Signal level=-51 dBm  
                     Encryption key:on
                     ESSID:"FBI SURVEILLANCE VAN: 357"
                     Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 18 Mb/s
                               24 Mb/s; 36 Mb/s; 54 Mb/s
                     Bit Rates:6 Mb/s; 9 Mb/s; 12 Mb/s; 48 Mb/s
                     Mode:Master
-                    Extra:tsf=000002c4aac8b37a
-                    Extra: Last beacon: 93944ms ago
+                    Extra:tsf=000002c59dfc2d83
+                    Extra: Last beacon: 59144ms ago
                     IE: Unknown: 0019464249205355525645494C4C414E43452056414E3A20333537
                     IE: Unknown: 010882848B962430486C
                     IE: Unknown: 030106
