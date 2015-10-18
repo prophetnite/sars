@@ -1,4 +1,3 @@
-
 // --------------------- INCLUDES AND CONFIGURATION  ---------------------
 
 // Includes
@@ -15,11 +14,11 @@ var Log_IP 		=	require('./models/log_ip');
 
 //Configs
 var config 		= 	require('./config'); 				// get our config file
-var debug_login	= 	true;								//DEBUG QRZ
+var debug_login	= 	false;								//DEBUG QRZ
 var debug_token = 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
 
 router.use(session({
-  secret: config.secret_api_token,
+  secret: config.secret_token_session,
   resave: false,
   saveUninitialized: false
 }))
@@ -40,12 +39,9 @@ router.get('/', function (req, res){
 	res.redirect('/login');
 });
 
-router.get('/login', function (req, res){
-	var token = req.session.token || debug_login;
-	if (token){req.query.token=debug_token}
-	console.log("Login page Token: " + token);
-	//if (token){res.redirect('/dashboard')}
-	res.render('pages/login', {});
+router.get('/login', function (req, res){		
+	if (req.session.token || debug_login){res.redirect('/dashboard')}
+	res.render('pages/login');
 });
 
 router.get('/logout', function (req, res){
@@ -76,7 +72,7 @@ router.post('/api/authenticate', function (req, res) {
       	} else {
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(user, config.secret, {
+        var token = jwt.sign(user, config.secret_token_api, {
           expiresInMinutes: 1440 // expires in 24 hours
         });
         // return the information including token as JSON
@@ -98,20 +94,19 @@ router.post('/api/authenticate', function (req, res) {
 // route middleware to verify a token
 router.use(function (req, res, next) {
 	// check header or url parameters or post parameters for token
-	var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.session.token || "";
+	var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.session.token;
 
 	console.log("\n\n----------------------------------------------------------")							// DEBUG QRZ
   	console.log("\ntoken:" + token, "\ndebug:" + debug_login, "\ndebug_token: " + debug_token)				//
-  																											//
   	if (!token && debug_login) {
   			console.log("\nDebug login ACTIVE");															//
   			token = debug_token}
   	console.log("\n-----------------------------------------------------------\n\n")						//
-  	
+
 	// decode token
   	if (token) {
     // verifies secret and checks exp
-    jwt.verify(token, config.secret	, function(err, decoded) {      // should be set to app.get('globalvar')
+    jwt.verify(token, config.secret_token_api	, function(err, decoded) {      // should be set to app.get('globalvar')
     	if (err) {
         	return res.json({ success: false, message: 'Failed to authenticate token.' });    
     	} else {
