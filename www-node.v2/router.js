@@ -72,7 +72,7 @@ router.post('/api/mongo/user/register', function (req, res){
 	console.log(req.body.password);
 
 	// Check if username already registered
-	finduser = User.findOne({
+	User.findOne({
 			$or: [
             	{ 'username' : req.body.email },
            		{ 'email': req.body.email }
@@ -80,14 +80,23 @@ router.post('/api/mongo/user/register', function (req, res){
     			if (err) throw err;
     			if (!user){
     				console.log('User not registered');
-    		//		res.json({success:false, message:"Username Not found"})
+    				var userreg = new User({
+    					firstname:req.body.firstname,
+    					lastname:req.body.lastname,
+    					email:req.body.email,
+    					password:req.body.password
+    				});
+    				userreg.save(function(err) {
+    					console.log('user saved');
+    				});
+    				res.json({success:false, message:"Username Not found"});
     			} else {
-    				console.log('User registered');
-    			//	res.json({success:false, message:"Username alread registered"})
+    				console.log('User already registered');
+    				res.json({success:false, message:"username"});
     			}
     	
 			});
-console.log("FINEUSER: " + finduser.user);
+console.log("FINEUSER: ");
 
 //	res.json({success:true});
 });
@@ -104,7 +113,12 @@ console.log("FINEUSER: " + finduser.user);
 router.post('/api/authenticate', function (req, res) {
   // find the user
   	User.findOne({
-		name: req.body.name
+  		$or: [
+            	{ 'name' : req.body.name },
+            	{ 'email' : req.body.name}
+          	]	
+
+		
 	}, function(err, user) {
     	if (err) throw err;
 	    if (!user) {
