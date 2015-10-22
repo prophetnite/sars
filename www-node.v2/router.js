@@ -11,6 +11,7 @@ var router 		=	express.Router();
 // DB Models
 var User   		=	require('./models/user');
 var Log_IP 		=	require('./models/log_ip');
+var Log_backup 		=	require('./models/log_backup');
 
 //Configs
 var config 		= 	require('./config'); 				// get our config file
@@ -195,8 +196,39 @@ router.get('/api/users', function (req, res) {
 
 
 
-// ------------------SEMI PRIVATE -------------------------------------
-router.get('/api/mongo/public/create', function (req, res) {	
+
+// --------------------- API (JSON-MONGO) TEST SYSTEM  ---------------------
+router.get('/api/mongo/backup/checkin/script', function (req, res) {	
+	if (req.session.username) {
+		owner = req.session.username
+	} else {
+		owner = req.body.username
+	}
+
+		console.log('---------------------------------------')
+		console.log('\nUser: ' + owner + '\n\n')
+		console.log('---------------------------------------')
+
+
+		
+	res.end(' #!/bin/bash \n \
+				#checkin_auth.sh\n\n \
+				devID=\'38554\' \n \
+				nesHost=\'localhost\' \n \
+				authtoken="$(tail -n 1 agent_checkin.sh)" \n \
+				curl --insecure --data "token=$authtoken&username=$devID" -X GET https://$nesHost/api/mongo/backup/checkin/script\n\n \
+				exit;\n\n \
+				### user token ###\n' + req.body.token);
+})
+
+// --------------------- END API (JSON-MONGO) TEST SYSTEM  ------------------
+
+
+
+
+
+// --------------------- API (JSON-MONGO) TEST SYSTEM  ---------------------
+router.get('/api/mongo/backup/checkin', function (req, res) {	
 	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged 
 	var ts_hms = moment().format('hh:mm:ss');
 	var ts_ymd = moment().format('L');
@@ -208,7 +240,7 @@ router.get('/api/mongo/public/create', function (req, res) {
 		owner = req.body.username
 	}
 
-	var log_ip = new Log_IP({ 
+	var log_backup = new Log_backup({ 
 		"time":ts_hms,
         "date":ts_ymd,
         "ip":trackip,
@@ -220,19 +252,22 @@ router.get('/api/mongo/public/create', function (req, res) {
         "connection":req.headers['connection'],
         "owner":owner
 	});
+		
 		console.log('---------------------------------------')
 		console.log('\nUser: ' + owner + '\n\n')
-		console.log(log_ip + '\n')
+		console.log(log_backup + '\n')
 		console.log('---------------------------------------')
 
-	log_ip.save(function(err) {
+	log_backup.save(function(err) {
 		if (err) throw err;
 		console.log('Log_IP saved successfully');
     	res.json({ success: true });
 	});
 	//res.end('NSA tracking Database: Thanks for reporting in!');
 })
-// ------------------------------------------------------------------------------
+
+// --------------------- END API (JSON-MONGO) TEST SYSTEM  ------------------
+
 
 
 
