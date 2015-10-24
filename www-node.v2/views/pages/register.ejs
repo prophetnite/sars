@@ -40,7 +40,7 @@ $(document).ready(function(){
         /*
         * Perform some validation here.
         */
-        $.post("/api/mongo/user/register",{firstname:firstname,lastname:lastname, email:email, email2:email2, password:password},function(data){       
+        $.post("/api/register",{firstname:firstname,lastname:lastname, email:email, email2:email2, password:password},function(data){       
             data = JSON.parse(JSON.stringify(data));
             console.log("Success: "); console.log(data.success); 
             console.log("Message: "); console.log(data.message); 
