@@ -10,7 +10,7 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
-	
+
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
 	<link href="assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
-	
+
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="assets/plugins/pace/pace.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -36,18 +36,19 @@ $(document).ready(function(){
         email=$("#email").val();
         email2=$("#email2").val();
         password=$("#password").val();
-        
+
         /*
         * Perform some validation here.
         */
-        $.post("/api/register",{firstname:firstname,lastname:lastname, email:email, email2:email2, password:password},function(data){       
+        $.post("/api/register",{firstname:firstname,lastname:lastname, email:email, email2:email2, password:password},function(data){
             data = JSON.parse(JSON.stringify(data));
-            console.log("Success: "); console.log(data.success); 
-            console.log("Message: "); console.log(data.message); 
-            
-            if(data.success==true)          
-            {   
+            console.log("Success: "); console.log(data.success);
+            console.log("Message: "); console.log(data.message);
+
+            if(data.success==true)
+            {
                 console.log("result acive");
+								console.log("result acive");
                 window.location.href="/login";
             }
         });
@@ -62,7 +63,7 @@ $(document).ready(function(){
 	<!-- begin #page-loader -->
 	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
 	<!-- end #page-loader -->
-	
+
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin register -->
@@ -118,8 +119,8 @@ $(document).ready(function(){
                                 <input type="text" class="form-control" placeholder="Password" id="password"/>
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="checkbox m-b-30">
                             <label>
                                 <input type="checkbox" /> By clicking Sign Up, you agree to our <a href="#">Terms</a> and that you have read our <a href="#">Data Policy</a>, including our <a href="#">Cookie Use</a>.
@@ -142,7 +143,7 @@ $(document).ready(function(){
             <!-- end right-content -->
         </div>
         <!-- end register -->
-        
+
         <!-- begin theme-panel -->
         <div class="theme-panel">
             <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
@@ -221,7 +222,7 @@ $(document).ready(function(){
         <!-- end theme-panel -->
 	</div>
 	<!-- end page container -->
-	
+
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
@@ -235,7 +236,7 @@ $(document).ready(function(){
 	<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 	<!-- ================== END BASE JS ================== -->
-	
+
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="assets/js/apps.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
