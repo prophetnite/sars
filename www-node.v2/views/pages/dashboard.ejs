@@ -10,6 +10,7 @@
 	<header>
         <% include ../partials/header %>
         <% include ../partials/sidebar %>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     </header>
 	
 
@@ -46,43 +47,58 @@
                 </div>
                 <!-- /.row -->
                 <!-- end PAGE TITLE AREA -->
-                <div class="panel panel-default">
+                    Auth Token: 
                   <div class="panel-body" class="bg-warning">
-                    <%= token %>
+                    <pre class="prettyprint"><%= token %></pre>
                   </div>
-                </div>
-
                 
 
-                Unauthenticated Routes
-                <ul>
-                    <li><a href="/login">/login</a><br>
-                    <li><a href="/logout">/logout</a><br>
-                    <li><a href="/api">/api</a><br>
-                    <li><a href="/api/authenticate">/api/authenticate</a><br>
-                </ul>
+<pre class="prettyprint">
 
-                Authenticated Routes - Mongo
-                <ul>
-                    <li><a href="/api/mongo/create" target='_blank'>/api/mongo/create</a><br>
-                    <li><a href="/api/mongo/read">/api/mongo/read</a><br>
-                    <li><a href="/api/mongo/read/prophetnite">/api/mongo/read/[username]</a><br>
-                    <li><a href="/api/mongo/delete/_IDOID">/api/mongo/delete/_id</a><br>
-                    <li><a href="/api/users" target='_blank'>/api/users</a><br>
-                </ul>
-                Authenticated Special Routes - Mongo
-                <ul>
-                    <li><a href="/api/mongo/public/create?token=<%= token %>&user=prophetnite" target='_blank'>/api/mongo/create?token=[token]&user=[user]</a><br>
-                </ul>
-                Authenticated Routes - Local CSV
-                <ul>
-                    <li><a href="/api/csv/create" target='_blank'>/api/csv/create</a><br>
-                    <li><a href="/api/csv/read">/api/csv/read</a><br>
-                    <li><a href="/api/csv/read/prophetnite">/api/csv/read/[username]</a><br>
-                    <li><a href="/api/csv/update/asdfasdfasdf">/api/csv/update/[_id]</a><br>
-                    <li><a href="/api/csv/delete/asdfasdfasdf">/api/mongo/delete/[_id]</a><br>
-                    <li><a href="/api/users" target='_blank'>/api/users</a><br>
-                </ul>
+
+    /routes/pages_public.js
+            GET /api
+            GET /
+            GET /login
+            GET /logout
+            GET /register
+
+
+    /routes/api_public.js
+            POST /api/register
+
+    /routes/api_auth.js
+            POST /api/authenticate
+                 function()-force authenticate
+    [AUTH]  GET  /api/users
+
+    /routes/pages_private.js
+    [AUTH]  GET /dashboard
+    [AUTH]  GET /log_ip
+    [AUTH]  GET /devices
+    [AUTH]  GET /map
+    [AUTH]  GET /settings
+    [AUTH]  GET /contacts
+    [AUTH]  GET /about
+
+
+    /routes/api_private.js
+    [AUTH]  GET /api/log_ip/post?token=[token]&user=[user]&
+    [AUTH]  GET /api/log_ip/get/
+    [AUTH]  GET /api/log_ip/get/:username
+    [AUTH]  GET /api/log_ip/delete/:_id
+    [AUTH]  GET /api/backup/script/get
+    [AUTH]  GET /api/backup/checkin
+
+
+    SYSTEM CODE: QRZ                // SAMPLE CODE ONLY - REMOVE FROM DEPLOYMENT BRANCH
+    SYSTEM CODE: DEBUG QRZ          // FOR NON-PRODUCTION - REMOVE FROM DEPLOYMENT BRANCH
+
+
+
+                </pre>
+
+
             </div>
             <!-- /.page-content -->
 

@@ -1,41 +1,38 @@
 // =======================
-// INCLUDE CORE PACKAGES 
+// INCLUDE CORE PACKAGES
 // =======================
-var express 	=	require('express'),
-	https 		= 	require('https'),
-	fs 			= 	require('fs'),
-	path 		=	require('path'),
-	bodyParser  = 	require('body-parser'),
-	morgan      = 	require('morgan'),
-	mongoose    = 	require('mongoose'),
-	moment 		=	require('moment'),
-	jwt    		=	require('jsonwebtoken'),		// used to create, sign, and verify tokens
-	app         =	express();
-	session 	= 	require('express-session');
-	session = global.session;
+var express 	=		require('express'),
+		https 			= 	require('https'),
+		fs 					= 	require('fs'),
+		path 				=		require('path'),
+		bodyParser  = 	require('body-parser'),
+		morgan      = 	require('morgan'),
+		mongoose    = 	require('mongoose'),
+		moment 			=		require('moment'),
+		jwt    			=		require('jsonwebtoken'),		// used to create, sign, and verify tokens
+		app         =		express();
+		session 		= 	require('express-session');
+		//session 		= 	global.session;
 // ======================================================
-
 
 
 
 // =======================
 // INCLUDE DATABASE MODELS
 // =======================
-	GLOBAL.User   		=	require('./models/user'),
-	GLOBAL.Log_IP 		=	require('./models/log_ip'),
+	GLOBAL.User   			=	require('./models/user'),
+	GLOBAL.Log_IP 			=	require('./models/log_ip'),
 	GLOBAL.Log_backup 	=	require('./models/log_backup');
 // ======================================================
 
 
 
-
 // =======================
-// INCLUDE CONFIG SETTINGS 
+// INCLUDE CONFIG SETTINGS
 // =======================
-	GLOBAL.config 		= 	require('./config'); 				// get our config file
+	GLOBAL.config 			= 	require('./config'); 				// get our config file
 	GLOBAL.debug_login	= 	false;								//DEBUG QRZ
-	GLOBAL.debug_token = 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
-
+	GLOBAL.debug_token 	= 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
 
 	router 		=	express.Router();
 
@@ -45,7 +42,6 @@ var express 	=	require('express'),
 	  saveUninitialized: false
 	}))
 // ======================================================
-
 
 
 
@@ -65,7 +61,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 
-
 // =======================
 // USE MIDDLEWARE
 // =======================
@@ -79,7 +74,6 @@ app.use(morgan('dev'));
 // ======================================================
 
 
- 
 
 // =======================
 // SETUP ROUTES
@@ -90,7 +84,6 @@ app.use(require('./routes/api_auth'))
 app.use(require('./routes/pages_private'))
 app.use(require('./routes/api_private'))
 // ======================================================
-
 
 
 

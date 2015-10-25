@@ -4,12 +4,27 @@
 <html lang="en">
 <head>
 	<% include ../partials/head %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		  $('#example').DataTable();
+
+			$.get("https://localhost/api/log_ip/get/	",function(data){
+					//var table = $('#example').children();
+						for (var in data) {
+								$('#example').append("<tr><td>" + data[p].time + "</td><td>" + data[p].date + "</td><td>" + data[p].ip + "</td><td>" +  "</td><td>" + data[p].host + "</td><td>" + data[p].owner + "</td></tr>");
+						};
+				});
+		});
+	</script>
 </head>
 <body>
 
     	<% include ../partials/header %>
         <% include ../partials/sidebar %>
-	
+
 
         <!-- begin MAIN PAGE CONTENT -->
         <div id="page-wrapper">
@@ -21,12 +36,12 @@
                     <div class="col-lg-12">
                         <div class="page-title">
                             <h1><%= pagetitle %>
-                                <small><%= user[0].title %></small>
+                                <small><%= username %></small>
                             </h1>
                             <ol class="breadcrumb">
-                                <li><i class="fa fa-dashboard"></i>  <a href="/"><%= user[0].title %></a>
+                                <li><i class="fa fa-dashboard"></i>  <a href="/"><%= username %></a>
                                 </li>
-                                <li class="active"><%= user[0].title %></li>
+                                <li class="active"><%= username %></li>
                             </ol>
                         </div>
                     </div>
@@ -42,37 +57,37 @@
                     <div class="col-lg-12">
                         <div class="portlet portlet-default">
                             <div class="portlet-heading">
-                            
+
                                 <div class="clearfix"></div>
                             </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
 
 
+																			<table id="example" class="display" cellspacing="0" width="100%">
+																	        <thead>
+																	            <tr>
+																	                <th>time</th>
+																	                <th>date</th>
+																	                <th>ip</th>
+																	                <th>host</th>
+																	                <th>Start date</th>
+																	                <th>owner</th>
+																	            </tr>
+																	        </thead>
 
+																	        <tfoot>
+																	            <tr>
+																	                <th>time</th>
+																	                <th>date</th>
+																	                <th>ip</th>
+																	                <th>host</th>
+																	                <th>Start date</th>
+																	                <th>owner</th>
+																	            </tr>
+																	        </tfoot>
+																				</table>
 
-                        <table class="table">
-                                <tr><th>date</th><th>time</th><th>headers</th><th>Address</th><th></th></tr>
-
-                            <% for (var i = 1; i < Object.keys(loggedAddresses).length; i++) { %>
-                                <% var loggedAddressesSingle = loggedAddresses[i] %>
-                                <% console.log('log: ' + i) %>                                          <!-- DEBUG CONSOLE LOGGING -->
-                                <tr>
-                                    <td><%= loggedAddressesSingle['date'] %></td>
-                                    <td><%= loggedAddressesSingle['time'] %></td>
-                                    <td><a href="http://www.telize.com/geoip/<%= loggedAddressesSingle['remoteAddress'] %>" target="_blank"><%= loggedAddressesSingle['remoteAddress'] %></a></td>
-
-                                    <td ><%= JSON.stringify(loggedAddressesSingle['headers']) %></td>
-                                   
-                                    <td><form action="/delete" method=post>
-                                            <input type="hidden" name="delItem" value="<%= i %>">
-                                            <input type="submit" value="Del">
-                                    </form></td>
-                                </tr>
-
-                            <% } %>
-                        </table>
-       
 
 
 
@@ -89,8 +104,8 @@
                 </div>
                 <!-- /.row -->
 
-                
-     
+
+
                 <!-- end BASIC TABLES MAIN ROW -->
 
             </div>
