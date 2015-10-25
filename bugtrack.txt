@@ -5,3 +5,7 @@
 
 10/18/15 	consolodate ajax calls to api, currently all login/register ajax are page independant functions
 
+
+git reset --hard
+git clean -f -d
+git clean -f -x -d
