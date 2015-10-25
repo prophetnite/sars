@@ -1,4 +1,8 @@
-// --------------------- API LOGIC ROUTES - PUBLIC---------------------
+// ==== FILE: api_public.js ====
+
+// ===========================================================
+//  								API LOGIC ROUTES - PUBLIC
+// ===========================================================
 router.post('/api/register', function (req, res){		
 	//if (req.session.token){res.redirect('/dashboard')}
 	console.log('endpoint hit');
@@ -27,19 +31,19 @@ router.post('/api/register', function (req, res){
     					console.log('user saved');
                         res.json({success:true, message:"user saved"});
     				});
-                    
+
     				res.json({success:false, message:"usersave attempted"});
     			} else {
     				console.log('User already registered');
     				res.json({success:false, message:"username"});
     			}
-    	
+
 			});
 console.log("FINEUSER: ");
 
 //	res.json({success:true});
 });
+// ============= END API LOGIC ROUTES - PUBLIC ==============
 
-// --------------------- END API LOGIC ROUTES - PUBLIC ---------------------
 
 module.exports = router;

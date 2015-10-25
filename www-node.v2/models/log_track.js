@@ -1,5 +1,5 @@
 // ===========================================================
-//        FILE: log_backup.js
+//        FILE: log_track.js
 //        USE: DB Model
 // ===========================================================
 
@@ -8,16 +8,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('Log_Backup', new Schema({
-    "deviceid": String,
-    "epoch": String,
-    "store_free": String,
-    "time": String,
-    "date": String,
-    "ip": String,
+module.exports = mongoose.model('Log_Track', new Schema({
     "mac": String,
+    "Epoch": String,
+    "gps": String,
+    "wifi": String,
+    "ip": String,
     "host": String,
+    "user-agent": String,
+    "accept": String,
+    "accept-language": String,
+    "accept-encoding": String,
     "connection": String,
-    "other": String,
-    "owner": String
+    "username": String,
+    "token_temp": String
 }));
