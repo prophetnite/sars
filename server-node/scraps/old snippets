@@ -1,0 +1,98 @@
+
+
+
+
+
+// --------------------- CSV JSON DATABASE FUNCTIONS  ---------------------
+function writedatabase(data, db_type){
+	fs.writeFile( __dirname + "/" + "iplog_db_" + db_type + ".json", JSON.stringify(data), function (err) {		
+			if (err) return console.log(err);											// ERROR CONSOLE LOGGING
+	});
+}
+
+function loaddatabase(db_type) {
+	var db;
+	try {
+		database = fs.readFileSync( __dirname + "/" + "iplog_db_" + db_type + ".json", 'utf8');
+	} catch (e) {
+		console.log('Read file error: ' + e);
+	}
+	return JSON.parse(database);
+}
+// --------------------- END CSV JSON DATABASE FUNCTIONS  ---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------- API DATABASE SETUP ROUTES  ---------------------
+// ------- ***** CONFIG CONTAINS LIVE DATABASE PASSWORDS ***** ----------
+// ---------------------------config.secret------------------------------
+// ----------------------------------------------------------------------
+router.get('/api/setup', function (req, res) {
+	// create a sample user
+	/*var nick = new User({ 
+    	name: 'prophetnite', 
+    	password: 'password',
+    	admin: true 
+	});*/
+
+	var log_ip = new Log_IP({ 
+		"time":"12:08:00",
+        "date":"9/12/15",
+        "ip":"localhost",
+        "host":"localhost:1337",
+        "user-agent":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0",
+        "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "accept-language":"en-US,en;q=0.5",
+        "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "accept-language":"en-US,en;q=0.5",
+        "accept-encoding":"gzip, deflate",
+        "connection":"keep-alive",
+        "other":"other",
+        "owner":"user"
+	});
+
+	// save the sample user
+	/*nick.save(function(err) {
+		if (err) throw err;
+		console.log('User saved successfully');
+    	res.json({ success: true });
+	});*/
+
+	// save the sample user
+	log_ip.save(function(err) {
+		if (err) throw err;
+		console.log('User saved successfully');
+    	res.json({ success: true });
+	});
+
+});
+// --------------------- API DATABASE SETUP ROUTES  ---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
