@@ -1,16 +1,23 @@
+// ==== FILE: api_auth.js ====
+
+// ===============================================
+// = Misc Library includes
+// ===============================================
 var jwt         =   require('jsonwebtoken');        // used to create, sign, and verify tokens
 
-// --------------------- API (MONGO) AUTHENTICATION ROUTES  ---------------------
-// -- Everything after token verify requires authentication
+// ===============================================
+// =          API (MONGO) AUTHENTICATION ROUTES
+// = Everything after token verify requires authentication
+// ===============================================
 router.post('/api/authenticate', function (req, res) {
   // find the user
   	User.findOne({
   		$or: [
             	{ 'name' : req.body.name },
             	{ 'email' : req.body.name}
-          	]	
+          	]
 
-		
+
 	}, function(err, user) {
     	if (err) throw err;
 	    if (!user) {
@@ -36,12 +43,14 @@ router.post('/api/authenticate', function (req, res) {
 
         	res.json({"success":"true","message":"Enjoy your token!",token:token,"session":"false"});
        }
-      }   
+      }
     }
   });
 });
 
-// route middleware to verify a token
+// ===============================================
+// = ROUTE MIDDLEWARE TO VERIFY TOKEN
+// ===============================================
 router.use(function (req, res, next) {
 	// check header or url parameters or post parameters for token
 	var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.session.token;
@@ -58,18 +67,18 @@ router.use(function (req, res, next) {
     // verifies secret and checks exp
     jwt.verify(token, config.secret_token_api	, function(err, decoded) {      // should be set to app.get('globalvar')
     	if (err) {
-        	return res.json({ success: false, message: 'Failed to authenticate token.' });    
+        	return res.json({ success: false, message: 'Failed to authenticate token.' });
     	} else {
         	// if everything is good, save to request for use in other routes
-        	req.decoded = decoded;    
+        	req.decoded = decoded;
         	next();
-      	}	
+      	}
     });
   	} else {
 	    // if there is no token return an error
-	    return res.status(403).send({ 
-	        success: false, 
-	        message: 'No token provided.' 
+	    return res.status(403).send({
+	        success: false,
+	        message: 'No token provided.'
 	    });
 	}
 });
@@ -79,8 +88,12 @@ router.get('/api/users', function (req, res) {
 	User.find({}, function (err, users) {
 		res.json(users);
 	});
-});   
+});
 // --------------------- END API (MONGO) AUTHENTICATION ROUTES  ---------------------
 
 
+// ===============================================
+// = EXPORT ANY ROUTER OBJECTS
+// ===============================================
 module.exports = router;
+// ===============================================
