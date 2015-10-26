@@ -3,7 +3,7 @@
 // ===========================================================
 //  								API LOGIC ROUTES - PUBLIC
 // ===========================================================
-router.post('/api/register', function (req, res){		
+router.post('/api/register', function (req, res){
 	//if (req.session.token){res.redirect('/dashboard')}
 	console.log('endpoint hit');
 	console.log(req.body.firstname);
@@ -18,6 +18,8 @@ router.post('/api/register', function (req, res){
             	{ 'username' : req.body.email },
            		{ 'email': req.body.email }
            	]}, function(err, user) {
+									console.log(req.body.email + req.body.firstname);
+
     			if (err) throw err;
     			if (!user){
     				console.log('User not registered');
