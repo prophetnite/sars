@@ -1,5 +1,5 @@
 // ===========================
-// 			ENDPOINT LAYOUT
+// ENDPOINT LAYOUT
 // ===========================
 // THIS FILE IS FOR NOTES ONLY
 // ===========================
