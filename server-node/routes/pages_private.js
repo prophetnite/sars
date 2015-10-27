@@ -1,5 +1,8 @@
+// ==== FILE: api_public.js ====
 
-// --------------------- CORE SITE PAGES - PRIVATE ---------------------
+// ===========================================================
+//  					CORE SITE PAGES - PRIVATE
+// ===========================================================
 router.get('/dashboard', function (req, res){
 	console.log('\nDashboard: Token: ' + req.session.token)																// #DEBUG QRZ
 
@@ -13,9 +16,7 @@ router.get('/dashboard', function (req, res){
 			email: 34,
 			messages: 343,
 			token: req.session.token});
-
 });
-
 router.get('/log_ip', function (req, res){
 	//load data from DB here
 		pagedata = Log_IP.find({}, function (err, users) {  console.log('HELLO NODEMON????');   });
@@ -60,7 +61,7 @@ router.get('/about', function (req, res){
 		username: req.session.username
 	});
 });
-//  --------------- END CORE SITE PAGES - PRIVATE -------------------
+//  ============= END CORE SITE PAGES - PRIVATE ==================
 
 
 
