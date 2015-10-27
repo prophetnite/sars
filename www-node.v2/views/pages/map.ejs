@@ -59,7 +59,9 @@
 
             </div>
             <!-- /.page-content -->
-
+						<label-default>Map of a device</label-default>
+						<div id="map"></div>
+						<style>#map {width:450px; height:600px;}</style>
         </div>
         <!-- /#page-wrapper -->
         <!-- end MAIN PAGE CONTENT -->
@@ -76,12 +78,16 @@
         <% include ../partials/footer %>
     </footer>
 
-
-	<script>
+	<!-- fill in  -->
+	<script >
 		$(document).ready(function() {
-			App.init();
-			MapGoogle.init();
-		});
+			//App.init();
+			//MapGoogle.init();
+			$("#mapGoogle").googleMap({zoom: 10, // Initial zoom level (optional)
+			coords: [48.895651, 2.290569], // Map center (optional)
+			type: "HYBRID" // Map type (optional)});
+})
+	});
 	</script>
 
 </body>
