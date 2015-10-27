@@ -49,9 +49,32 @@
 
 
 
+																<label-default>Map of a device</label-default>
+																<div id="googleMap" style="width:800px; height:500px;"></div>
+
+										<script src="https://maps.googleapis.com/maps/api/js"></script>
 
 
+								    <script>
+								    function mymap() {
+								      var mapProp = {
+								        center:new google.maps.LatLng(51.508742,-0.120850),
+								        zoom:5,
+								        mapTypeId:google.maps.MapTypeId.ROADMAP
+								      };
 
+											var myLatLng = {lat: 51.508742, lng: -0.120850};
+
+											var marker = new google.maps.Marker({
+											position: myLatLng,
+											map: map,
+											title: 'Hello World!',
+											});
+											//Marker not working or showing idk :/
+								      var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+								    }
+								    google.maps.event.addDomListener(window, 'load', mymap);
+								    </script>
 
 
 
@@ -59,9 +82,7 @@
 
             </div>
             <!-- /.page-content -->
-						<label-default>Map of a device</label-default>
-						<div id="map"></div>
-						<style>#map {width:450px; height:600px;}</style>
+
         </div>
         <!-- /#page-wrapper -->
         <!-- end MAIN PAGE CONTENT -->
@@ -78,17 +99,16 @@
         <% include ../partials/footer %>
     </footer>
 
+
 	<!-- fill in  -->
-	<script >
+	<!--script>
 		$(document).ready(function() {
 			//App.init();
 			//MapGoogle.init();
-			$("#mapGoogle").googleMap({zoom: 10, // Initial zoom level (optional)
-			coords: [48.895651, 2.290569], // Map center (optional)
-			type: "HYBRID" // Map type (optional)});
-})
+			var map = new google.maps.map(document.getElementById("googleMap"), mapProp);
+			google.maps.event.addDomListener(window, 'load', initialize);
 	});
-	</script>
+</script-->
 
 </body>
 </html>
