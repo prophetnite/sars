@@ -49,6 +49,22 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+/*Activating submit if enter is pressed in username or password textbox:
+ Not sure if it should be in a seperate script tag or not, feel free to change
+ also As far as I could aquire the function clicks #submit button properly but in every
+ case pressing enter in either box does not work, clicking on submit does not work as well
+ so need to work on #submit function*/
+$(document).ready(function(){
+  $("#username, #password").keyup(function(event){
+    if(event.keyCode == 13){
+    event.preventDefault();
+    $("#submit").click();
+    }
+    });
+});
+</script>
+
 </head>
 
 
