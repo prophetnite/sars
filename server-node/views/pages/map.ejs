@@ -49,8 +49,8 @@
 
 
 
-																<label-default>Map of a device</label-default>
-																<div id="googleMap" style="width:800px; height:500px;"></div>
+										<label-default>Map of a device</label-default>
+										<div id="googleMap" style="width:800px; height:500px;"></div>
 
 										<script src="https://maps.googleapis.com/maps/api/js"></script>
 
@@ -63,15 +63,18 @@
 								        mapTypeId:google.maps.MapTypeId.ROADMAP
 								      };
 
-											var myLatLng = {lat: 51.508742, lng: -0.120850};
+											var myLatLng = new google.maps.LatLng(51.508742,-0.120850);
 
-											var marker = new google.maps.Marker({
-											position: myLatLng,
-											map: map,
-											title: 'Hello World!',
-											});
 											//Marker not working or showing idk :/
 								      var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+											var marker = {
+											position: new google.maps.Marker(myLatLng),
+											map: map,
+											title: 'Please show yourself!',
+											visible: true
+											};
+											marker.setMap(map);
 								    }
 								    google.maps.event.addDomListener(window, 'load', mymap);
 								    </script>
