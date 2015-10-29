@@ -10,7 +10,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-    
+
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
     <link href="assets/css/style-responsive.min.css" rel="stylesheet" />
     <link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
     <!-- ================== END BASE CSS STYLE ================== -->
-    
+
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="assets/plugins/pace/pace.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -35,11 +35,11 @@ $(document).ready(function(){
         /*
         * Perform some validation here.
         */
-        $.post("/api/authenticate",{name:username,password:password,apitype:"web"},function(data){       
+        $.post("/api/authenticate",{name:username,password:password,apitype:"web"},function(data){
             //console.log(data);                                                                              // #DEBUG QRZ
             data = JSON.parse(JSON.stringify(data));
             //console.log(data.success);                                                                      // #DEBUG QRZ
-            if(data.success==='true')          
+            if(data.success==='true')
             {
                 //console.log("passed")                                                                       // #DEBUG QRZ
                 window.location.href="dashboard";
@@ -48,7 +48,23 @@ $(document).ready(function(){
     });
 });
 </script>
-    
+
+<script>
+/*Activating submit if enter is pressed in username or password textbox:
+ Not sure if it should be in a seperate script tag or not, feel free to change
+ also As far as I could aquire the function clicks #submit button properly but in every
+ case pressing enter in either box does not work, clicking on submit does not work as well
+ so need to work on #submit function*/
+$(document).ready(function(){
+  $("#username, #password").keyup(function(event){
+    if(event.keyCode == 13){
+    event.preventDefault();
+    $("#submit").click();
+    }
+    });
+});
+</script>
+
 </head>
 
 
@@ -56,7 +72,7 @@ $(document).ready(function(){
     <!-- begin #page-loader -->
     <div id="page-loader" class="fade in"><span class="spinner"></span></div>
     <!-- end #page-loader -->
-    
+
     <div class="login-cover">
         <div class="login-cover-image"><img src="assets/img/login-bg/bg1.jpg" data-id="login-cover-image" alt="" /></div>
         <div class="login-cover-bg"></div>
@@ -101,11 +117,11 @@ $(document).ready(function(){
             </div>
         </div>
         <!-- end login -->
-        
-        
+
+
     </div>
     <!-- end page container -->
-    
+
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="assets/plugins/jquery/jquery-1.9.1.min.js"></script>
     <script src="assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
@@ -119,7 +135,7 @@ $(document).ready(function(){
     <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
     <!-- ================== END BASE JS ================== -->
-    
+
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="assets/js/login-v2.demo.min.js"></script>
     <script src="assets/js/apps.min.js"></script>
@@ -131,7 +147,7 @@ $(document).ready(function(){
             LoginV2.init();
         });
     </script>
-    
+
 </body>
 
 </html>
