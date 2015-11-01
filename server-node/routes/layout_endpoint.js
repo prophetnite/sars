@@ -15,7 +15,7 @@
 		POST /api/v1/register
 
 /routes/api_auth.js
-				POST /api/v1/authenticate
+		POST /api/v1/authenticate
 			 	function()-force authenticate
 [AUTH]	GET	 /api/v1/users
 
@@ -30,10 +30,10 @@
 
 
 /routes/api_private.js
-[AUTH]	GET /api/v1/log_track/post?token=[token]&user=[user]&
-[AUTH]	GET /api/v1/log_track/get/
-[AUTH]	GET /api/v1/log_track/get/:username
-[AUTH]	GET /api/v1/log_track/delete/:_id
+[AUTH]	GET /api/v1/log/track/post?token=[token]&user=[user]&
+[AUTH]	GET /api/v1/log/track/get/
+[AUTH]	GET /api/v1/log/track/get/:username
+[AUTH]	GET /api/v1/log/track/delete/:_id
 
 [AUTH]	GET /api/v1/backup/script/get
 [AUTH]	GET /api/v1/backup/checkin

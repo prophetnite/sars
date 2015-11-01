@@ -10,17 +10,17 @@
 // ======================================================
 // INCLUDE CORE PACKAGES
 // ======================================================
-var express 	=		require('express'),
-		https 			= 	require('https'),
-		fs 					= 	require('fs'),
-		path 				=		require('path'),
-		bodyParser  = 	require('body-parser'),
-		morgan      = 	require('morgan'),
-		mongoose    = 	require('mongoose'),
-		moment 			=		require('moment'),
-		jwt    			=		require('jsonwebtoken'),		// used to create, sign, and verify tokens
-		session 		= 	require('express-session'),
-		app         =		express();
+var express 		=	require('express'),
+	https 		= 	require('https'),
+	fs 			= 	require('fs'),
+	path 		=	require('path'),
+	bodyParser  = 	require('body-parser'),
+	morgan      = 	require('morgan'),
+	mongoose    = 	require('mongoose'),
+	moment 		=	require('moment'),
+	jwt    		=	require('jsonwebtoken'),		// used to create, sign, and verify tokens
+	session 	= 	require('express-session'),
+	app         =	express();
 
 		//session 		= 	global.session;
 // ======================================================
@@ -31,8 +31,8 @@ var express 	=		require('express'),
 // ======================================================
 // INCLUDE DATABASE MODELS
 // ======================================================
-	GLOBAL.User   			=	require('./models/user'),
-	GLOBAL.Log_Track 		=	require('./models/log_track'),
+	GLOBAL.User   		=	require('./models/user'),
+	GLOBAL.log_track 	=	require('./models/log_track'),
 	GLOBAL.Log_Backup 	=	require('./models/log_backup');
 // ======================================================
 
@@ -42,11 +42,11 @@ var express 	=		require('express'),
 // ======================================================
 // INCLUDE CONFIG SETTINGS
 // ======================================================
-	GLOBAL.config 			= 	require('./config'); 				// get our config file
+	GLOBAL.config 		= 	require('./config'); 				// get our config file
 	GLOBAL.debug_login	= 	false;								//DEBUG QRZ
 	GLOBAL.debug_token 	= 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
 
-	router 		=	express.Router();
+	router 	=	express.Router();
 
 	router.use(session({
 	  secret: config.secret_token_session,
@@ -61,9 +61,9 @@ var express 	=		require('express'),
 // ======================================================
 // SETUP CORE SERVER
 // ======================================================
-var key  		= 	fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
-var cert 		= 	fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
-var port 		= 	process.env.PORT || 443; // used to create, sign, and verify tokens
+var key  	= 	fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
+var cert 	= 	fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
+var port 	= 	process.env.PORT || 443; // used to create, sign, and verify tokens
 
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable

@@ -12,7 +12,7 @@ moment 		=	require('moment')
 // ===============================================
 // = API (JSON-MONGO) TEST SYSTEM
 // ===============================================
-router.get('/api/v1/log_track/post', function (req, res) {
+router.get('/api/v1/log/track/post', function (req, res) {
 	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged
 	var ts_hms = moment().format('hh:mm:ss');
 	var ts_ymd = moment().format('L');
@@ -24,8 +24,8 @@ router.get('/api/v1/log_track/post', function (req, res) {
 		owner = req.body.username
 	}
 
-	var log_track = new Log_track({
-				"time":ts_hms,
+	var log_track = new Log_Track({
+		"time":ts_hms,
         "date":ts_ymd,
         "ip":trackip,
         "host":req.headers['host'],
@@ -50,14 +50,14 @@ router.get('/api/v1/log_track/post', function (req, res) {
 	//res.end('NSA tracking Database: Thanks for reporting in!');
 })
 
-router.get('/api/v1/log_track/get/', function (req, res) {
+router.get('/api/v1/log/track/get/', function (req, res) {
 
 	log_track.find({}, function (err, users) {
 		res.json(users);
 	});
 })
 
-router.get('/api/v1/log_track/get/:username', function (req, res) {
+router.get('/api/v1/log/track/get/:username', function (req, res) {
 	var username = req.params.username
 	log_track.find({owner: username}, function (err, users) {
 		res.json(users);
@@ -65,14 +65,14 @@ router.get('/api/v1/log_track/get/:username', function (req, res) {
 })
 																																				// SYSTEM CODE: QRZ
 																																				//
-router.get('/api/v1/log_track/put/:id', function (req, res) {									// CODE AS SAMPLE ONLY
+router.get('/api/v1/log/track/put/:id', function (req, res) {									// CODE AS SAMPLE ONLY
 	var id = req.params.id 																								// NO NEED TO UPDATE OR DELETE IP_LOG
 	log_track.update({}, function (err, users) {															//
 		res.json(users);																										//
 	});   																																//
 })																																			//
 
-router.get('/api/v1/log_track/delete/:id', function (req, res) {							//
+router.get('/api/v1/log/track/delete/:id', function (req, res) {							//
 	var id = req.params.id 																								//
 	log_track.findByIdAndRemove(id, function (err, users) {									//
 		res.json(users);																										//
@@ -86,7 +86,7 @@ router.get('/api/v1/log_track/delete/:id', function (req, res) {							//
 // ===============================================
 // = API (JSON-MONGO) TEST SYSTEM
 // ===============================================
-router.get('/api/v1/backup/script/get', function (req, res) {
+router.get('/api/v1/log/backup/script/get', function (req, res) {
 	if (req.session.username) {
 		owner = req.session.username
 	} else {
@@ -117,7 +117,7 @@ router.get('/api/v1/backup/script/get', function (req, res) {
 // ===============================================
 // = API (JSON-MONGO) TEST SYSTEM
 // ===============================================
-router.get('/api/v1/backup/checkin', function (req, res) {
+router.get('/api/v1/log/backup/checkin', function (req, res) {
 	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged
 	var ts_hms = moment().format('hh:mm:ss');
 	var ts_ymd = moment().format('L');

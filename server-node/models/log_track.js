@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('Log_Track', new Schema({
+module.exports = mongoose.model('log_track', new Schema({
     "mac": String,
     "Epoch": String,
     "gps": String,
@@ -22,4 +22,5 @@ module.exports = mongoose.model('Log_Track', new Schema({
     "connection": String,
     "username": String,
     "token_temp": String
-}));
+    
+}), 'log_track');
