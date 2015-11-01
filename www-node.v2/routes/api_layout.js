@@ -1,5 +1,5 @@
 // ===========================
-// 			ENDPOINT LAYOUT
+// 			API LAYOUT
 // ===========================
 // THIS FILE IS FOR NOTES ONLY
 // ===========================
@@ -12,12 +12,12 @@
 		GET /register
 
 /routes/api_public.js
-		POST /api/v1/register
+		POST /api/register
 
 /routes/api_auth.js
-				POST /api/v1/authenticate
+				POST /api/authenticate
 			 	function()-force authenticate
-[AUTH]	GET	 /api/v1/users
+[AUTH]	GET	 /api/users
 
 /routes/pages_private.js
 [AUTH]	GET /dashboard
@@ -30,13 +30,13 @@
 
 
 /routes/api_private.js
-[AUTH]	GET /api/v1/log_track/post?token=[token]&user=[user]&
-[AUTH]	GET /api/v1/log_track/get/
-[AUTH]	GET /api/v1/log_track/get/:username
-[AUTH]	GET /api/v1/log_track/delete/:_id
+[AUTH]	GET /api/log_ip/post?token=[token]&user=[user]&
+[AUTH]	GET /api/log_ip/get/
+[AUTH]	GET /api/log_ip/get/:username
+[AUTH]	GET /api/log_ip/delete/:_id
 
-[AUTH]	GET /api/v1/backup/script/get
-[AUTH]	GET /api/v1/backup/checkin
+[AUTH]	GET /api/backup/script/get
+[AUTH]	GET /api/backup/checkin
 
 
 SYSTEM CODE: QRZ								// SAMPLE CODE ONLY - REMOVE FROM DEPLOYMENT BRANCH

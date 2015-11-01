@@ -10,7 +10,7 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
-
+	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -21,95 +21,33 @@
 	<link href="assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
-
+	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="assets/plugins/pace/pace.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
 
 <script>
-function checkPass()
-{
-    //Store the password field objects into variables ...
-		password=$("#password").val();
-		password2=$("#password2").val();
-    //Store the Confimation Message Object ...
-    var message = document.getElementById('messagePassword2');
-      //Compare the values in the password field
-    //and the confirmation field
-		console.log(password + ' ' + password2);
-		if (password.length && password2.length == 0)
-		{
-			$("#password").removeClass("alert-success");
-			$("#password").removeClass("alert-danger");
-			$("#password2").removeClass("alert-success");
-			$("#password2").removeClass("alert-danger");
-			message.innerHTML = '';
-			return;
-		}
-    if(password == password2){
-				console.log("password match");
-        //The passwords match.
-        //Set the color to the good color and inform
-        //the user that they have entered the correct password
-      	$("#password").addClass("alert-success");
-				$("#password2").removeClass("alert-danger");
-				$("#password2").addClass("alert-success");
-				message.style.color = "#66cc66";
-        message.innerHTML = "Passwords Match!";
-    }else{
-					console.log("something else");
-        //The passwords do not match.
-        //Set the color to the bad color and
-        //notify the user.
-        $("#password2").addClass("alert-danger");
-				message.style.color = "#ff6666";
-        message.innerHTML = "Passwords Do Not Match!";
-    }
-
-
-}
-
-function isEmail(email) {
-	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	return regex.test(email);
-}
-
 $(document).ready(function(){
     var username,password;
     $("#submit").click(function(){
         firstname=$("#firstname").val();
         lastname=$("#lastname").val();
         email=$("#email").val();
+        email2=$("#email2").val();
         password=$("#password").val();
-				password2=$("#password2").val();
-
-				if (!firstname || !lastname || !email || !password || !password2)
-				{
-					console.log("EMPTY FIELDS DETECTED");
-				}
-
-
-
-				if (isEmail(email) == false)
-				{
-					$("#email").addClass("alert-danger");
-					var msg = document.getElementById('messageEmail');
-					msg.style.color = "#ff6666";
-					msg.innerHTML = "Invalid e-mail";
-				}
+        
         /*
         * Perform some validation here.
         */
-        $.post("/api/register",{firstname:firstname,lastname:lastname, email:email, password:password},function(data){
+        $.post("/api/register",{firstname:firstname,lastname:lastname, email:email, email2:email2, password:password},function(data){       
             data = JSON.parse(JSON.stringify(data));
-            console.log("Success: "); console.log(data.success);
-            console.log("Message: "); console.log(data.message);
-
-            if(data.success==true)
-            {
+            console.log("Success: "); console.log(data.success); 
+            console.log("Message: "); console.log(data.message); 
+            
+            if(data.success==true)          
+            {   
                 console.log("result acive");
-								console.log("result acive");
                 window.location.href="/login";
             }
         });
@@ -124,7 +62,7 @@ $(document).ready(function(){
 	<!-- begin #page-loader -->
 	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
 	<!-- end #page-loader -->
-
+	
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin register -->
@@ -153,7 +91,7 @@ $(document).ready(function(){
                 <!-- begin register-content -->
                 <div class="register-content">
                     <form class="margin-bottom-0">
-                        <label class="control-label">Name</label>  <label class="control-label" id="messageName"></label>
+                        <label class="control-label">Name</label>
                         <div class="row row-space-10">
                             <div class="col-md-6 m-b-15">
                                 <input type="text" class="form-control" placeholder="First name" id="firstname"/>
@@ -162,27 +100,26 @@ $(document).ready(function(){
                                 <input type="text" class="form-control" placeholder="Last name" id="lastname"/>
                             </div>
                         </div>
-                        <label class="control-label">Email</label>  <label class="control-label" id="messageEmail"></label>
+                        <label class="control-label">Email</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
                                 <input type="text" class="form-control" placeholder="Email address" id="email"/>
                             </div>
                         </div>
-                        <label class="control-label">Password</label>  <label class="control-label" id="messagePassword"></label>
+                        <label class="control-label">Re-enter Email</label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Re-enter email address" id="email2"/>
+                            </div>
+                        </div>
+                        <label class="control-label">Password</label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
                                 <input type="text" class="form-control" placeholder="Password" id="password"/>
                             </div>
                         </div>
-                        <label class="control-label">Re-enter password</label> <label class="control-label" id="messagePassword2"></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="Re-enter password" id="password2" onkeyup="checkPass(); return false;" />
-                            </div>
-                        </div>
-
-
-
+                        
+                        
                         <div class="checkbox m-b-30">
                             <label>
                                 <input type="checkbox" /> By clicking Sign Up, you agree to our <a href="#">Terms</a> and that you have read our <a href="#">Data Policy</a>, including our <a href="#">Cookie Use</a>.
@@ -205,7 +142,7 @@ $(document).ready(function(){
             <!-- end right-content -->
         </div>
         <!-- end register -->
-
+        
         <!-- begin theme-panel -->
         <div class="theme-panel">
             <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
@@ -284,7 +221,7 @@ $(document).ready(function(){
         <!-- end theme-panel -->
 	</div>
 	<!-- end page container -->
-
+	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
@@ -298,7 +235,7 @@ $(document).ready(function(){
 	<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 	<!-- ================== END BASE JS ================== -->
-
+	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="assets/js/apps.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
