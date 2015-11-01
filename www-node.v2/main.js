@@ -1,15 +1,6 @@
-// ==== FILE: main.js ====
-
-// ======================================================
-// =    Main server initialization script
-// ======================================================
-
-
-
-
-// ======================================================
+// =======================
 // INCLUDE CORE PACKAGES
-// ======================================================
+// =======================
 var express 	=		require('express'),
 		https 			= 	require('https'),
 		fs 					= 	require('fs'),
@@ -19,29 +10,26 @@ var express 	=		require('express'),
 		mongoose    = 	require('mongoose'),
 		moment 			=		require('moment'),
 		jwt    			=		require('jsonwebtoken'),		// used to create, sign, and verify tokens
-		session 		= 	require('express-session'),
 		app         =		express();
-
+		session 		= 	require('express-session');
 		//session 		= 	global.session;
 // ======================================================
 
 
 
-
-// ======================================================
+// =======================
 // INCLUDE DATABASE MODELS
-// ======================================================
+// =======================
 	GLOBAL.User   			=	require('./models/user'),
-	GLOBAL.Log_Track 		=	require('./models/log_track'),
-	GLOBAL.Log_Backup 	=	require('./models/log_backup');
+	GLOBAL.Log_IP 			=	require('./models/log_ip'),
+	GLOBAL.Log_backup 	=	require('./models/log_backup');
 // ======================================================
 
 
 
-
-// ======================================================
+// =======================
 // INCLUDE CONFIG SETTINGS
-// ======================================================
+// =======================
 	GLOBAL.config 			= 	require('./config'); 				// get our config file
 	GLOBAL.debug_login	= 	false;								//DEBUG QRZ
 	GLOBAL.debug_token 	= 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
@@ -57,10 +45,9 @@ var express 	=		require('express'),
 
 
 
-
-// ======================================================
+// =======================
 // SETUP CORE SERVER
-// ======================================================
+// =======================
 var key  		= 	fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
 var cert 		= 	fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
 var port 		= 	process.env.PORT || 443; // used to create, sign, and verify tokens
@@ -74,10 +61,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 
-
-// ======================================================
+// =======================
 // USE MIDDLEWARE
-// ======================================================
+// =======================
 //app.use(bodyParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -89,10 +75,9 @@ app.use(morgan('dev'));
 
 
 
-
-// ======================================================
+// =======================
 // SETUP ROUTES
-// ======================================================
+// =======================
 app.use(require('./routes/pages_public'))
 app.use(require('./routes/api_public'))
 app.use(require('./routes/api_auth'))
@@ -102,10 +87,7 @@ app.use(require('./routes/api_private'))
 
 
 
-
-// ======================================================
 https.createServer({
     key: key,
     cert: cert
 }, app).listen(port);
-// ======================================================
