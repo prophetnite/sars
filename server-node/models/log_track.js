@@ -22,5 +22,4 @@ module.exports = mongoose.model('log_track', new Schema({
     "connection": String,
     "username": String,
     "token_temp": String
-    
 }), 'log_track');

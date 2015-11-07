@@ -8,16 +8,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('Log_Backup', new Schema({
+module.exports = mongoose.model('log_backup', new Schema({
     "deviceid": String,
+    "serial": String,
     "epoch": String,
     "store_free": String,
     "time": String,
     "date": String,
     "ip": String,
-    "mac": String,
     "host": String,
     "connection": String,
     "other": String,
-    "owner": String
-}));
+    "username": String
+}), 'log_backup');

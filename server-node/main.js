@@ -10,7 +10,7 @@
 // ======================================================
 // INCLUDE CORE PACKAGES
 // ======================================================
-var express 		=	require('express'),
+var express 	=	require('express'),
 	https 		= 	require('https'),
 	fs 			= 	require('fs'),
 	path 		=	require('path'),
@@ -33,7 +33,7 @@ var express 		=	require('express'),
 // ======================================================
 	GLOBAL.User   		=	require('./models/user'),
 	GLOBAL.log_track 	=	require('./models/log_track'),
-	GLOBAL.Log_Backup 	=	require('./models/log_backup');
+	GLOBAL.log_backup 	=	require('./models/log_backup');
 // ======================================================
 
 

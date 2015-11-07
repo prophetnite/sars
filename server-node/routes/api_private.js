@@ -3,14 +3,16 @@
 // ===============================================
 // = API (JSON-MONGO) TEST SYSTEM
 // ===============================================
-moment 		=	require('moment')
+var moment 	=	require('moment');
+var fs 		= 	require('fs');
+var filename =  '../agents/agent-linux/agent_checkin_clean.txt';
 // === END API TEST ==============================
 
 
 
 
 // ===============================================
-// = API (JSON-MONGO) TEST SYSTEM
+// = API (JSON-MONGO) TRACKER LOGGER 
 // ===============================================
 router.get('/api/v1/log/track/post', function (req, res) {
 	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged
@@ -24,7 +26,7 @@ router.get('/api/v1/log/track/post', function (req, res) {
 		owner = req.body.username
 	}
 
-	var log_track = new Log_Track({
+	var track = new log_track({
 		"time":ts_hms,
         "date":ts_ymd,
         "ip":trackip,
@@ -42,7 +44,7 @@ router.get('/api/v1/log/track/post', function (req, res) {
 		console.log(log_track + '\n')
 		console.log('---------------------------------------')
 
-	log_track.save(function(err) {
+	track.save(function(err) {
 		if (err) throw err;
 		console.log('log_track saved successfully');
     	res.json({ success: true });
@@ -50,14 +52,13 @@ router.get('/api/v1/log/track/post', function (req, res) {
 	//res.end('NSA tracking Database: Thanks for reporting in!');
 })
 
-router.get('/api/v1/log/track/get/', function (req, res) {
-
+router.get('/api/v1/log/track/', function (req, res) {
 	log_track.find({}, function (err, users) {
 		res.json(users);
 	});
 })
 
-router.get('/api/v1/log/track/get/:username', function (req, res) {
+router.get('/api/v1/log/track/:username', function (req, res) {
 	var username = req.params.username
 	log_track.find({owner: username}, function (err, users) {
 		res.json(users);
@@ -78,83 +79,94 @@ router.get('/api/v1/log/track/delete/:id', function (req, res) {							//
 		res.json(users);																										//
 	});   																																//
 })																																			//
-// ====== END API (JSON-MONGO) TEST SYSTEM ===============================
+// ====== END API (JSON-MONGO) TRACKER LOGGER ===============================
 
 
 
 
 // ===============================================
-// = API (JSON-MONGO) TEST SYSTEM
+// = API (JSON-MONGO) Backup System Logger
 // ===============================================
-router.get('/api/v1/log/backup/script/get', function (req, res) {
-	if (req.session.username) {
-		owner = req.session.username
-	} else {
-		owner = req.body.username
-	}
-
-		console.log('---------------------------------------');
-		console.log('\nUser: ' + owner + '\n\n');
-		console.log('\nToken: ' + req.query.token + '\n\n');
-		console.log('---------------------------------------');
-
-
-
-	res.end(' #!/bin/bash \n \
-				#checkin_auth.sh\n\n \
-				devID=\'38554\' \n \
-				nesHost=\'localhost\' \n \
-				authtoken="$(tail -n 1 agent_checkin.sh)" \n \
-				curl --insecure --data "token=$authtoken&username=$devID" -X GET https://$nesHost/api/v1/mongo/backup/checkin/script\n\n \
-				exit;\n\n \
-				### user token ###\n' + req.query.token);
-})
-// ====== END API (JSON-MONGO) TEST SYSTEM ===============================
-
-
-
-
-// ===============================================
-// = API (JSON-MONGO) TEST SYSTEM
-// ===============================================
-router.get('/api/v1/log/backup/checkin', function (req, res) {
-	var trackip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged
-	var ts_hms = moment().format('hh:mm:ss');
-	var ts_ymd = moment().format('L');
-	var fullheader = req.headers;
-
-	if (req.session.username) {
-		owner = req.session.username
-	} else {
-		owner = req.body.username
-	}
-
-	var log_backup = new Log_backup({
-				"time":ts_hms,
-        "date":ts_ymd,
-        "ip":trackip,
-        "host":req.headers['host'],
-				"user-agent":req.headers['user-agent'],
-        "accept":req.headers['accept'],
-        "accept-language":req.headers['accept-language'],
-        "accept-encoding":req.headers['accept-encoding'],
-        "connection":req.headers['connection'],
-        "owner":owner
+router.get('/api/v1/log/backup', function (req, res) {
+	log_backup.find({}, function (err, users) {
+		res.json(users);
 	});
+})
 
-		console.log('---------------------------------------')
-		console.log('\nUser: ' + owner + '\n\n')
-		console.log(log_backup + '\n')
-		console.log('---------------------------------------')
+router.get('/api/v1/log/backup/:username', function (req, res) {
+	var username = req.params.username
+	log_backup.find({username: username}, function (err, users) {
+		res.json(users);
+	});
+})
 
-	log_backup.save(function(err) {
+router.get('/api/v1/log/backup/checkin', function (req, res) {
+	var dev_deviceid = req.body.deviceid || req.query.deviceid || "";
+	var dev_serial = req.body.serial || req.query.serial || "";
+	var dev_epoch = (new Date).getTime();
+	var dev_store_free = "";
+	var dev_ts_hms = moment().format('hh:mm:ss');
+	var dev_ts_ymd = moment().format('L');
+	var dev_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;		// Load tracking data to be logged
+	var dev_host = req.headers['host'];
+	var dev_connection = req.headers['connection'];
+	var dev_other = "";
+	var dev_username = req.body.username || req.query.username || "";
+	console.log('FUNCTION HIT');
+	var backup = new log_backup({
+		"deviceid":dev_deviceid,
+	    "serial":dev_serial,
+		"epoch":dev_epoch,
+		"store_free":dev_store_free,
+		"time":dev_ts_hms,
+        "date":dev_ts_ymd,
+        "ip":dev_ip,
+        "host":dev_host,
+		"connection":dev_connection,
+    	"other":dev_other,
+        "username":dev_username    
+	});
+console.log('BACKUP INIT');
+		console.log('---------------------------------------');
+		console.log('\nUser: ' + dev_username + '\n\n');
+		console.log(log_backup + '\n');
+		console.log('---------------------------------------');
+console.log('PRE BACKUPSAVE');
+	backup.save(function(err) {
 		if (err) throw err;
 		console.log('log_track saved successfully');
     	res.json({ success: true });
 	});
 	//res.end('NSA tracking Database: Thanks for reporting in!');
 })
-// ====== END API (JSON-MONGO) TEST SYSTEM ===============================
+
+router.get('/api/v1/log/backup/script/get.txt', function (req, res) {
+	// if (req.session.username) {
+	// 	username = req.session.username;
+	// } else {
+	// 	username = req.body.username;
+	// }
+	username = req.body.username || req.query.username || "";
+	token 	= req.body.token 	|| req.query.token 	  || "";
+	
+
+	console.log(username);
+	console.log("\n\n---------------------------------------");
+	console.log('User: ' + username + '');
+	console.log('Token: ' + token + '');
+	console.log('---------------------------------------\n');
+
+    try { data = fs.readFileSync(filename, 'utf8');
+	} catch (e) { console.log('Read file error: ' + e);}
+
+	var data = data.replace('prophetnite',username);
+	var data = data.replace('localhost',req.headers['host']);
+
+    res.end(data + token);
+	
+})
+// = END API (JSON-MONGO) Backup System Logger
+// ===============================================
 
 
 
