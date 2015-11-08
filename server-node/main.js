@@ -43,7 +43,7 @@ var express 	=	require('express'),
 // INCLUDE CONFIG SETTINGS
 // ======================================================
 	GLOBAL.config 		= 	require('./config'); 				// get our config file
-	GLOBAL.debug_login	= 	false;								//DEBUG QRZ
+	GLOBAL.debug_login	= 	true;								//DEBUG QRZ
 	GLOBAL.debug_token 	= 	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NWY1ZmExNDIyYzc0NWIwMWZiMTU1MTIiLCJuYW1lIjoicHJvcGhldG5pdGUiLCJwYXNzd29yZCI6InBhc3N3b3JkIiwiYWRtaW4iOnRydWUsIl9fdiI6MH0.uAE2igqxQbPT6CFFRskRCn-K-jOZYOTP5UtvBDG37Rc";
 
 	router 	=	express.Router();

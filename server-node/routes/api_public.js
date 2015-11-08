@@ -3,6 +3,16 @@
 // ===========================================================
 //  								API LOGIC ROUTES - PUBLIC
 // ===========================================================
+router.get('/init', function (req, res) {
+    var fs = require('fs');
+    try { data = fs.readFileSync('../agents/agent-linux/downloader.sh', 'utf8');
+          
+    var data = data.replace('prophetnite','asdf');
+    var data = data.replace('localhost',req.headers['host']);
+    res.end(data);
+    } catch (e) { console.log('Read file error: ' + e);}
+})
+
 router.post('/api/register', function (req, res){
 	//if (req.session.token){res.redirect('/dashboard')}
 	console.log('endpoint hit');
