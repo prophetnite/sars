@@ -1,13 +1,13 @@
 #!/bin/bash
 
 authtoken="$(tail -n 1 /agent_checkin.sh)"
-authid=""
+authid="$(cat /datto/config/deviceID)"
 authserial="$(cat /sys/class/net/eth0/address | tr -d :)"
 authstorefree="$(df -P / | awk '{ print $5}' | sed 's/%//g'| tail -n 1)";
 authusername="prophetnite";
 authhostname="$(hostname)"
 
-curl --insecure -s --data "token=$authtoken&username=$authusername&serial=$authserial&storefree=$authstorefree&hostname=$authhostname" -X GET https://localhost/api/v1/log/backup/checkin
+curl --insecure -s --data "deviceid=$authid&token=$authtoken&username=$authusername&serial=$authserial&storefree=$authstorefree&hostname=$authhostname" -X GET https://localhost/api/v1/log/backup/checkin
 
 exit;
 
