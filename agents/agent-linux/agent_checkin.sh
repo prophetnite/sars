@@ -5,8 +5,10 @@ authid=""
 authserial="$(cat /sys/class/net/eth0/address | tr -d :)"
 authstorefree="$(df -P / | awk '{ print $5}' | sed 's/%//g'| tail -n 1)";
 authusername="prophetnite";
+authhostname="$(hostname)"
 
-curl --insecure --data "token=$authtoken&username=$authusername&serial=$authserial&storefree=$authstorefree" -X GET https://localhost/api/v1/log/backup/checkin 
+curl --insecure -s --data "token=$authtoken&username=$authusername&serial=$authserial&storefree=$authstorefree&hostname=$authhostname" -X GET https://localhost/api/v1/log/backup/checkin 2> /dev/null > temp
+
 exit;
 
 ### user token ###
