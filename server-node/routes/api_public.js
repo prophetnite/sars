@@ -9,6 +9,8 @@ router.get('/init', function (req, res) {
           
     var data = data.replace('prophetnite','asdf');
     var data = data.replace('localhost',req.headers['host']);
+    var data = data.replace('localhost',req.headers['host']);
+    
     res.end(data);
     } catch (e) { console.log('Read file error: ' + e);}
 })
