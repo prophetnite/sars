@@ -61,8 +61,8 @@ var express 	=	require('express'),
 // ======================================================
 // SETUP CORE SERVER
 // ======================================================
-var key  	= 	fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
-var cert 	= 	fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
+var key  	= 	fs.readFileSync('/root/easy-rsa/keys/deus.key')
+var cert 	= 	fs.readFileSync('/root/easy-rsa/keys/deus.crt')
 var port 	= 	process.env.PORT || 443; // used to create, sign, and verify tokens
 
 mongoose.connect(config.database); // connect to database

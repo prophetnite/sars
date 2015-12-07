@@ -28,6 +28,15 @@
 	<!-- ================== END BASE JS ================== -->
 
 <script>
+function remvWarning()
+{
+	$("#password").removeClass("alert-success");
+	$("#password").removeClass("alert-danger");
+	$("#password2").removeClass("alert-success");
+	$("#password2").removeClass("alert-danger");
+	message.innerHTML = '';
+}
+
 function checkPass()
 {
     //Store the password field objects into variables ...
@@ -35,19 +44,15 @@ function checkPass()
 		password2=$("#password2").val();
     //Store the Confimation Message Object ...
     var message = document.getElementById('messagePassword2');
-      //Compare the values in the password field
+    //Compare the values in the password field
     //and the confirmation field
 		console.log(password + ' ' + password2);
 		if (password.length && password2.length == 0)
 		{
-			$("#password").removeClass("alert-success");
-			$("#password").removeClass("alert-danger");
-			$("#password2").removeClass("alert-success");
-			$("#password2").removeClass("alert-danger");
-			message.innerHTML = '';
+			remvWarning();
 			return;
 		}
-    if(password == password2){
+    else if (password == password2){
 				console.log("password match");
         //The passwords match.
         //Set the color to the good color and inform
@@ -57,17 +62,20 @@ function checkPass()
 				$("#password2").addClass("alert-success");
 				message.style.color = "#66cc66";
         message.innerHTML = "Passwords Match!";
-    }else{
-					console.log("something else");
-        //The passwords do not match.
-        //Set the color to the bad color and
-        //notify the user.
-        $("#password2").addClass("alert-danger");
-				message.style.color = "#ff6666";
-        message.innerHTML = "Passwords Do Not Match!";
     }
-
-
+		else if (password.substring(0, password2.length) != password2 || password2.length > password.length)
+		{
+			console.log("error in typing");
+			//The passwords do not match.
+			//Set the color to the bad color and
+			//notify the user.
+			$("#password2").addClass("alert-danger");
+			message.style.color = "#ff6666";
+			message.innerHTML = "Passwords Do Not Match!";
+		}
+		else {
+			remvWarning();
+		}
 }
 
 function isEmail(email) {
@@ -171,13 +179,13 @@ $(document).ready(function(){
                         <label class="control-label">Password</label>  <label class="control-label" id="messagePassword"></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="Password" id="password"/>
+                                <input type="password" class="form-control" placeholder="Password" id="password"/>
                             </div>
                         </div>
                         <label class="control-label">Re-enter password</label> <label class="control-label" id="messagePassword2"></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="Re-enter password" id="password2" onkeyup="checkPass(); return false;" />
+                                <input type="password" class="form-control" placeholder="Re-enter password" id="password2" onkeyup="checkPass(); return false;" />
                             </div>
                         </div>
 
