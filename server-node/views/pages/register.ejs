@@ -28,14 +28,6 @@
 	<!-- ================== END BASE JS ================== -->
 
 <script>
-function remvWarning()
-{
-	$("#password").removeClass("alert-success");
-	$("#password").removeClass("alert-danger");
-	$("#password2").removeClass("alert-success");
-	$("#password2").removeClass("alert-danger");
-	message.innerHTML = '';
-}
 
 function checkPass()
 {
@@ -49,7 +41,11 @@ function checkPass()
 		console.log(password + ' ' + password2);
 		if (password.length && password2.length == 0)
 		{
-			remvWarning();
+			$("#password").removeClass("alert-success");
+			$("#password").removeClass("alert-danger");
+			$("#password2").removeClass("alert-success");
+			$("#password2").removeClass("alert-danger");
+			message.innerHTML = '';
 			return;
 		}
     else if (password == password2){
@@ -69,12 +65,17 @@ function checkPass()
 			//The passwords do not match.
 			//Set the color to the bad color and
 			//notify the user.
+			$("#password").removeClass("alert-success");
 			$("#password2").addClass("alert-danger");
 			message.style.color = "#ff6666";
 			message.innerHTML = "Passwords Do Not Match!";
 		}
 		else {
-			remvWarning();
+			$("#password").removeClass("alert-success");
+			$("#password").removeClass("alert-danger");
+			$("#password2").removeClass("alert-success");
+			$("#password2").removeClass("alert-danger");
+			message.innerHTML = '';
 		}
 }
 
