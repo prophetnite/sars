@@ -6,7 +6,6 @@
 
 
 
-
 // ======================================================
 // INCLUDE CORE PACKAGES
 // ======================================================
@@ -20,7 +19,8 @@ var express 	=	require('express'),
 	moment 		=	require('moment'),
 	jwt    		=	require('jsonwebtoken'),		// used to create, sign, and verify tokens
 	session 	= 	require('express-session'),
-	app         =	express();
+	app         =	express(),
+	envVars = require('dotenv').config({path: '/nes.env'});
 
 		//session 		= 	global.session;
 // ======================================================
@@ -61,8 +61,8 @@ var express 	=	require('express'),
 // ======================================================
 // SETUP CORE SERVER
 // ======================================================
-var key  	= 	fs.readFileSync('/sslkeys/nes-ssl-priv-key.pem')
-var cert 	= 	fs.readFileSync('/sslkeys/nes-ssl-cert.pem')
+var SSL_key  	= 	fs.readFileSync(process.env.DB_key);
+var SSL_cert 	= 	fs.readFileSync(process.env.DB_cert);
 var port 	= 	process.env.PORT || 443; // used to create, sign, and verify tokens
 
 mongoose.connect(config.database); // connect to database
@@ -105,7 +105,7 @@ app.use(require('./routes/api_private'))
 
 // ======================================================
 https.createServer({
-    key: key,
-    cert: cert
+	key: SSL_key,
+	cert: SSL_cert
 }, app).listen(port);
 // ======================================================
