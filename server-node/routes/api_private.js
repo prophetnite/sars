@@ -109,7 +109,7 @@ router.get('/api/v1/log/backup/checkin', function (req, res) {
 	var dev_connection = req.headers['connection'];
 	var dev_other = "";
 	var dev_username = req.body.username || req.query.username || "";
-	
+	var dev_hostname = req.body.hostname || req.query.hostname || "";
 
 	var backup = new log_backup({
 		"deviceid":dev_deviceid,
@@ -122,7 +122,8 @@ router.get('/api/v1/log/backup/checkin', function (req, res) {
         "host":dev_host,
 		"connection":dev_connection,
     	"other":dev_other,
-        "username":dev_username    
+        "username":dev_username,
+        "hostname":dev_hostname    
 	});
 
 		console.log('---------------------------------------');

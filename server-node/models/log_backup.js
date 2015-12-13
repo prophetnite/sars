@@ -19,5 +19,6 @@ module.exports = mongoose.model('log_backup', new Schema({
     "host": String,
     "connection": String,
     "other": String,
-    "username": String
+    "username": String,
+    "hostname": String
 }), 'log_backup');
